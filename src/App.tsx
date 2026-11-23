@@ -39,6 +39,7 @@ import { SiteTooltipLayer } from './components/SiteTooltipLayer';
 import { FloatingDock } from './components/FloatingDock';
 import { CommandPalette } from './components/CommandPalette';
 import { SettingsModal } from './components/SettingsModal';
+import { AccountSyncProvider } from './sync/AccountSyncContext';
 import { GameFormModal, type GameFormValues } from './components/GameFormModal';
 import { HubView } from './views/HubView';
 import { EditorView } from './views/EditorView';
@@ -47,7 +48,7 @@ import { CollectionsView } from './views/CollectionsView';
 import { ArchiveView } from './views/ArchiveView';
 import { getDocumentDisplayTitle } from './utils/format';
 
-export function App() {
+function WorkspaceApp() {
   const [activeSection, setActiveSection] = useState<NavSection>('hub');
   const [activeDocId, setActiveDocId] = useState<string | null>(null);
   const previousSectionRef = useRef<NavSection>('hub');
@@ -655,6 +656,14 @@ export function App() {
 
       <SiteTooltipLayer />
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <AccountSyncProvider>
+      <WorkspaceApp />
+    </AccountSyncProvider>
   );
 }
 

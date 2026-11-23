@@ -3,7 +3,7 @@
 LOREKEEP utilizza esclusivamente servizi del **piano gratuito** di Cloudflare:
 - **Cloudflare Pages** per ospitare la PWA statica (`dist/`) con deploy automatico da GitHub.
 - **Cloudflare Workers** (`worker/src/index.ts`) per il proxy API verso **IGDB** (fonte primaria) e **SteamGridDB** (fallback / artwork alternativi), custodendo tutte le chiavi nei **Secrets** del Worker.
-- **Architettura Local-First invariata**: documenti, giochi, raccolte, tag e copertine scaricate continuano a risiedere localmente su **IndexedDB** e funzionano anche offline.
+- **Archivio Local-First**: il lavoro resta in **IndexedDB** e funziona offline. La sincronizzazione cross-device è facoltativa, usa Neon Auth e cifra i record nel browser prima di inviarli a Neon.
 
 ---
 
@@ -55,10 +55,14 @@ npx wrangler secret put STEAMGRIDDB_API_KEY --config worker/wrangler.toml
    - **Framework preset**: `Vite`
    - **Build command**: `npm run build`
    - **Build output directory**: `dist`
-4. In **Environment variables (Production & Preview)** aggiungi una sola variabile pubblica (non è una chiave segreta):
+4. In **Environment variables (Production & Preview)** aggiungi queste variabili pubbliche (non sono chiavi segrete):
    - **Nome**: `VITE_COVER_API_BASE`
    - **Valore**: `https://lorekeep-covers-api.<tuo-subdomain>.workers.dev` *(senza `/` finale)*
+   - **Nome**: `VITE_NEON_AUTH_URL` — URL pubblico Neon Auth che termina con `/lorekeep/auth`
+   - **Nome**: `VITE_NEON_SYNC_URL` — URL pubblico della Neon Function `sync`
 5. Avvia il deploy (**Save and Deploy**). Ogni futuro `git push` aggiornerà automaticamente la PWA.
+
+Le due variabili Neon sono configurazione pubblica. Non aggiungere `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, password database o API key Neon alle variabili Pages. Il branch di produzione Neon deve avere Neon Auth, Function `sync` e migrazioni applicati; configura `https://lorekeep.pages.dev` come dominio Auth attendibile.
 
 ---
 

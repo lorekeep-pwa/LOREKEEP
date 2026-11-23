@@ -13,6 +13,7 @@ import {
   type WorkspaceBackupPayload,
 } from '../utils/export';
 import { countWords } from '../utils/format';
+import type { SyncKeyRecord, SyncRecordState } from '../sync/types';
 
 class LorekeepDatabase extends Dexie {
   games!: EntityTable<Game, 'id'>;
@@ -21,6 +22,8 @@ class LorekeepDatabase extends Dexie {
   revisions!: EntityTable<DocumentRevision, 'id'>;
   gameSessions!: EntityTable<GameSession, 'id'>;
   settings!: EntityTable<AppSettings, 'id'>;
+  syncKeys!: EntityTable<SyncKeyRecord, 'id'>;
+  syncStates!: EntityTable<SyncRecordState, 'id'>;
 
   constructor() {
     super('lorekeep_local_db');
@@ -42,6 +45,18 @@ class LorekeepDatabase extends Dexie {
       revisions: 'id, documentId, createdAt',
       settings: 'id',
       gameSessions: 'id, gameId, playedAt, updatedAt',
+    });
+
+    this.version(3).stores({
+      games: 'id, title, platform, genre, developer, updatedAt, createdAt',
+      collections: 'id, name, updatedAt, createdAt',
+      documents:
+        'id, title, gameId, collectionId, *tags, isFavorite, isArchived, updatedAt, createdAt',
+      revisions: 'id, documentId, createdAt',
+      settings: 'id',
+      gameSessions: 'id, gameId, playedAt, updatedAt',
+      syncKeys: 'id',
+      syncStates: 'id, entityType, recordId, serverRevision, deleted',
     });
   }
 }

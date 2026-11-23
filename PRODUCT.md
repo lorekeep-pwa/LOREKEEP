@@ -20,7 +20,7 @@ Provide a dedicated, Local-First desktop PWA writing workspace tailored to video
 
 ## Positioning
 
-Unlike generic note-taking apps built around permanent multi-pane sidebars, cloud lock-in, subscriptions, or AI writing features, LOREKEEP pairs a Hybrid Floating Workspace with an Immersive Editor and manual game-world archiving—completely local-first, offline-ready, ad-free, account-free, and AI-free.
+Unlike generic note-taking apps built around permanent multi-pane sidebars, subscriptions, or AI writing features, LOREKEEP pairs a Hybrid Floating Workspace with an Immersive Editor and manual game-world archiving. It remains local-first and offline-ready, with optional end-to-end encrypted account sync, no ads, and no AI features.
 
 ## Operating Context
 
@@ -52,7 +52,8 @@ Unlike generic note-taking apps built around permanent multi-pane sidebars, clou
 
 ### Hard Non-Negotiable Constraints
 - Strictly no AI features.
-- No advertisements, subscriptions, telemetry, or mandatory accounts/registration.
+- No advertisements, subscriptions, telemetry, or mandatory accounts/registration. Optional email-code sign-in enables encrypted cross-device sync.
+- Sync payloads are encrypted in the browser with a user-held recovery phrase; Neon stores ciphertext and account/authentication metadata only.
 - No external game database API dependencies.
 - Real working functionality over aesthetic-only demos.
 

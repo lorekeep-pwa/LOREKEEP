@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import type { AppSettings, AppTheme, EditorFont, EditorWidth } from '../types/models';
 import { SelectField } from './SelectField';
+import { AccountSyncPanel } from './AccountSyncPanel';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -133,6 +134,8 @@ export function SettingsModal({
         </div>
 
         <div className="lk-dialog-body" style={{ gap: 8 }}>
+          <AccountSyncPanel />
+
           <fieldset className="lk-theme-setting">
             <legend className="lk-setting-name">Color theme</legend>
             <p className="lk-setting-desc">Choose the workspace palette for this device.</p>

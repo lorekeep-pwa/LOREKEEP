@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-22T22:54:00Z",
+  "generatedAt": "2026-11-23T17:25:20.204Z",
   "title": "Design System: LOREKEEP",
   "extensions": {
     "colorMeta": {
@@ -8,157 +8,391 @@
         "role": "primary",
         "displayName": "Disciplined Indigo",
         "canonical": "#5b6ef5",
-        "tonalRamp": ["#1a2159", "#2c3999", "#4153db", "#4b5ee8", "#5b6ef5", "#8191f8", "#aebaff", "#e6eaff"]
+        "tonalRamp": [
+          "#1a2159",
+          "#2c3999",
+          "#4153db",
+          "#4b5ee8",
+          "#5b6ef5",
+          "#8191f8",
+          "#aebaff",
+          "#e6eaff"
+        ]
       },
       "accent-fill": {
         "role": "primary",
         "displayName": "Accessible Indigo Fill",
         "canonical": "#4b5ee8",
-        "tonalRamp": ["#171e52", "#26338f", "#3848c4", "#4b5ee8", "#6577f2", "#8b99f7", "#b7c2ff", "#e9ecff"]
+        "tonalRamp": [
+          "#171e52",
+          "#26338f",
+          "#3848c4",
+          "#4b5ee8",
+          "#6577f2",
+          "#8b99f7",
+          "#b7c2ff",
+          "#e9ecff"
+        ]
       },
       "accent-hover": {
         "role": "primary",
         "displayName": "Indigo Fill Hover",
         "canonical": "#5668ee",
-        "tonalRamp": ["#192057", "#2a3896", "#3e4fd1", "#5668ee", "#7182f5", "#96a3f9", "#c0caff", "#ebeeff"]
+        "tonalRamp": [
+          "#192057",
+          "#2a3896",
+          "#3e4fd1",
+          "#5668ee",
+          "#7182f5",
+          "#96a3f9",
+          "#c0caff",
+          "#ebeeff"
+        ]
       },
       "accent-active": {
         "role": "primary",
         "displayName": "Indigo Fill Active",
         "canonical": "#4153db",
-        "tonalRamp": ["#151b4a", "#232e80", "#3241b3", "#4153db", "#5c6de8", "#8492f2", "#b3bdff", "#e6e9ff"]
+        "tonalRamp": [
+          "#151b4a",
+          "#232e80",
+          "#3241b3",
+          "#4153db",
+          "#5c6de8",
+          "#8492f2",
+          "#b3bdff",
+          "#e6e9ff"
+        ]
       },
       "accent-soft": {
         "role": "primary",
         "displayName": "Indigo Soft Wash",
         "canonical": "rgba(91, 110, 245, 0.14)",
-        "tonalRamp": ["#141724", "#1b2038", "#232b52", "#2e3970", "#4252a6", "#6b7ce0", "#aebaff", "#e6eaff"]
+        "tonalRamp": [
+          "#141724",
+          "#1b2038",
+          "#232b52",
+          "#2e3970",
+          "#4252a6",
+          "#6b7ce0",
+          "#aebaff",
+          "#e6eaff"
+        ]
       },
       "accent-border": {
         "role": "primary",
         "displayName": "Indigo Active Border",
         "canonical": "rgba(91, 110, 245, 0.42)",
-        "tonalRamp": ["#161b33", "#222b57", "#313e85", "#4355b8", "#5b6ef5", "#8594f8", "#b7c2ff", "#e8ebff"]
+        "tonalRamp": [
+          "#161b33",
+          "#222b57",
+          "#313e85",
+          "#4355b8",
+          "#5b6ef5",
+          "#8594f8",
+          "#b7c2ff",
+          "#e8ebff"
+        ]
       },
       "accent-ink": {
         "role": "primary",
         "displayName": "Pure White CTA Ink",
         "canonical": "#ffffff",
-        "tonalRamp": ["#1a1b1f", "#33363f", "#545866", "#7a8091", "#a3a8b5", "#c9cdd6", "#e8eaef", "#ffffff"]
+        "tonalRamp": [
+          "#1a1b1f",
+          "#33363f",
+          "#545866",
+          "#7a8091",
+          "#a3a8b5",
+          "#c9cdd6",
+          "#e8eaef",
+          "#ffffff"
+        ]
       },
       "bg-recessed": {
         "role": "neutral",
         "displayName": "Recessed Slate",
         "canonical": "#101116",
-        "tonalRamp": ["#101116", "#181a21", "#272b37", "#43495c", "#6c7385", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#181a21",
+          "#272b37",
+          "#43495c",
+          "#6c7385",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-canvas": {
         "role": "neutral",
         "displayName": "Deep Slate Canvas",
         "canonical": "#14151a",
-        "tonalRamp": ["#101116", "#14151a", "#222530", "#3d4354", "#666d7e", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#14151a",
+          "#222530",
+          "#3d4354",
+          "#666d7e",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-topbar": {
         "role": "neutral",
         "displayName": "Topbar Slate",
         "canonical": "#181a21",
-        "tonalRamp": ["#101116", "#181a21", "#272b37", "#424859", "#6a7183", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#181a21",
+          "#272b37",
+          "#424859",
+          "#6a7183",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-surface": {
         "role": "neutral",
         "displayName": "Panel Slate",
         "canonical": "#1c1e26",
-        "tonalRamp": ["#101116", "#1c1e26", "#2c303e", "#464c5f", "#6d7486", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#1c1e26",
+          "#2c303e",
+          "#464c5f",
+          "#6d7486",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-elevated": {
         "role": "neutral",
         "displayName": "Elevated Slate",
         "canonical": "#222530",
-        "tonalRamp": ["#101116", "#222530", "#313646", "#4b5266", "#71788a", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#222530",
+          "#313646",
+          "#4b5266",
+          "#71788a",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-interactive": {
         "role": "neutral",
         "displayName": "Interactive Slate",
         "canonical": "#272b37",
-        "tonalRamp": ["#101116", "#222530", "#272b37", "#444b60", "#6d7488", "#949ba4", "#c4c9d1", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#222530",
+          "#272b37",
+          "#444b60",
+          "#6d7488",
+          "#949ba4",
+          "#c4c9d1",
+          "#f2f3f5"
+        ]
       },
       "bg-interactive-hover": {
         "role": "neutral",
         "displayName": "Interactive Hover Slate",
         "canonical": "#2f3443",
-        "tonalRamp": ["#101116", "#222530", "#2f3443", "#4c546b", "#737b8f", "#9aa1ac", "#c7ccd4", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#222530",
+          "#2f3443",
+          "#4c546b",
+          "#737b8f",
+          "#9aa1ac",
+          "#c7ccd4",
+          "#f2f3f5"
+        ]
       },
       "bg-active": {
         "role": "neutral",
         "displayName": "Active Dock Slate",
         "canonical": "#343a4c",
-        "tonalRamp": ["#101116", "#222530", "#343a4c", "#515a73", "#777f94", "#9da4b0", "#c9ced6", "#f2f3f5"]
+        "tonalRamp": [
+          "#101116",
+          "#222530",
+          "#343a4c",
+          "#515a73",
+          "#777f94",
+          "#9da4b0",
+          "#c9ced6",
+          "#f2f3f5"
+        ]
       },
       "border-subtle": {
         "role": "neutral",
         "displayName": "Subtle Hairline Border",
         "canonical": "rgba(255, 255, 255, 0.068)",
-        "tonalRamp": ["#14151a", "#1e2027", "#2c2f38", "#484c57", "#6f7482", "#9aa0ad", "#c8cdd6", "#f2f3f5"]
+        "tonalRamp": [
+          "#14151a",
+          "#1e2027",
+          "#2c2f38",
+          "#484c57",
+          "#6f7482",
+          "#9aa0ad",
+          "#c8cdd6",
+          "#f2f3f5"
+        ]
       },
       "border-default": {
         "role": "neutral",
         "displayName": "Default Hairline Border",
         "canonical": "rgba(255, 255, 255, 0.105)",
-        "tonalRamp": ["#14151a", "#22242c", "#343742", "#515663", "#777d8c", "#a1a7b3", "#ccd0d9", "#f2f3f5"]
+        "tonalRamp": [
+          "#14151a",
+          "#22242c",
+          "#343742",
+          "#515663",
+          "#777d8c",
+          "#a1a7b3",
+          "#ccd0d9",
+          "#f2f3f5"
+        ]
       },
       "border-strong": {
         "role": "neutral",
         "displayName": "Strong Hover Hairline",
         "canonical": "rgba(255, 255, 255, 0.17)",
-        "tonalRamp": ["#14151a", "#282b33", "#3e424e", "#5d6270", "#828896", "#aab0bc", "#d2d6de", "#f5f6f8"]
+        "tonalRamp": [
+          "#14151a",
+          "#282b33",
+          "#3e424e",
+          "#5d6270",
+          "#828896",
+          "#aab0bc",
+          "#d2d6de",
+          "#f5f6f8"
+        ]
       },
       "ink-primary": {
         "role": "neutral",
         "displayName": "Primary Off-White Ink",
         "canonical": "#f2f3f5",
-        "tonalRamp": ["#14151a", "#292c34", "#474c58", "#6d7381", "#949ba4", "#c4c9d1", "#e6e8ec", "#f2f3f5"]
+        "tonalRamp": [
+          "#14151a",
+          "#292c34",
+          "#474c58",
+          "#6d7381",
+          "#949ba4",
+          "#c4c9d1",
+          "#e6e8ec",
+          "#f2f3f5"
+        ]
       },
       "ink-secondary": {
         "role": "neutral",
         "displayName": "Secondary Cool Ink",
         "canonical": "#c4c9d1",
-        "tonalRamp": ["#14151a", "#272a33", "#434855", "#686e7d", "#8e95a3", "#b1b7c2", "#c4c9d1", "#edf0f5"]
+        "tonalRamp": [
+          "#14151a",
+          "#272a33",
+          "#434855",
+          "#686e7d",
+          "#8e95a3",
+          "#b1b7c2",
+          "#c4c9d1",
+          "#edf0f5"
+        ]
       },
       "ink-muted": {
         "role": "neutral",
         "displayName": "Muted Slate Ink",
         "canonical": "#949ba4",
-        "tonalRamp": ["#14151a", "#252830", "#3e434f", "#5e6573", "#7f8691", "#949ba4", "#bfc5cd", "#eaecef"]
+        "tonalRamp": [
+          "#14151a",
+          "#252830",
+          "#3e434f",
+          "#5e6573",
+          "#7f8691",
+          "#949ba4",
+          "#bfc5cd",
+          "#eaecef"
+        ]
       },
       "ink-dim": {
         "role": "neutral",
         "displayName": "Dim Separator Ink",
         "canonical": "#7f8691",
-        "tonalRamp": ["#14151a", "#24272f", "#3b404c", "#585f6d", "#7f8691", "#9ca3ad", "#c3c8d0", "#e9ecef"]
+        "tonalRamp": [
+          "#14151a",
+          "#24272f",
+          "#3b404c",
+          "#585f6d",
+          "#7f8691",
+          "#9ca3ad",
+          "#c3c8d0",
+          "#e9ecef"
+        ]
       },
       "state-success": {
         "role": "semantic",
         "displayName": "Local Save Emerald",
         "canonical": "#45b36b",
-        "tonalRamp": ["#102919", "#19472a", "#246e40", "#319155", "#45b36b", "#6ec98c", "#a3deb6", "#dff5e6"]
+        "tonalRamp": [
+          "#102919",
+          "#19472a",
+          "#246e40",
+          "#319155",
+          "#45b36b",
+          "#6ec98c",
+          "#a3deb6",
+          "#dff5e6"
+        ]
       },
       "state-favorite": {
         "role": "semantic",
         "displayName": "Favorite Gold",
         "canonical": "#e6b450",
-        "tonalRamp": ["#33250c", "#594115", "#856220", "#b3852d", "#e6b450", "#edc777", "#f4dca5", "#fcf3dc"]
+        "tonalRamp": [
+          "#33250c",
+          "#594115",
+          "#856220",
+          "#b3852d",
+          "#e6b450",
+          "#edc777",
+          "#f4dca5",
+          "#fcf3dc"
+        ]
       },
       "state-danger": {
         "role": "semantic",
         "displayName": "Destructive Coral",
         "canonical": "#e25757",
-        "tonalRamp": ["#361212", "#611f1f", "#912f2f", "#bf4141", "#e25757", "#ed8282", "#f5b0b0", "#fce2e2"]
+        "tonalRamp": [
+          "#361212",
+          "#611f1f",
+          "#912f2f",
+          "#bf4141",
+          "#e25757",
+          "#ed8282",
+          "#f5b0b0",
+          "#fce2e2"
+        ]
       },
       "state-danger-soft": {
         "role": "semantic",
         "displayName": "Destructive Soft Wash",
         "canonical": "rgba(226, 87, 87, 0.14)",
-        "tonalRamp": ["#241416", "#3d1d20", "#5e292d", "#87383d", "#b8494e", "#e25757", "#f38b8b", "#fce2e2"]
+        "tonalRamp": [
+          "#241416",
+          "#3d1d20",
+          "#5e292d",
+          "#87383d",
+          "#b8494e",
+          "#e25757",
+          "#f38b8b",
+          "#fce2e2"
+        ]
       }
     },
     "typographyMeta": {
@@ -332,6 +566,13 @@
       "description": "Linear hover-elevated story row inside panels displaying excerpt, game chip, tags, tabular word count, and quiet actions.",
       "html": "<div class=\"ds-doc-row\"><button type=\"button\" class=\"ds-doc-main\"><div class=\"ds-doc-top\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"var(--state-favorite, #e6b450)\" stroke=\"var(--state-favorite, #e6b450)\" stroke-width=\"2\" aria-hidden=\"true\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg><span class=\"ds-doc-title\">Fragments from Cauldron Lake</span></div><div class=\"ds-doc-excerpt\">Manuscripts in the Overlap Saga Anderson discovered along the shore…</div><div class=\"ds-doc-meta\"><span class=\"ds-meta-chip\">Alan Wake 2</span><span class=\"ds-tag-pill\">#lore</span><span class=\"ds-tabular\">412 words · 2m ago</span></div></button></div>",
       "css": ".ds-doc-row { width: 460px; max-width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border-radius: var(--radius-md, 11px); border: 1px solid transparent; background: transparent; font-family: var(--font-ui, 'Figtree', sans-serif); transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-doc-row:hover { background: var(--bg-elevated, #222530); border-color: var(--border-subtle, rgba(255, 255, 255, 0.068)); } .ds-doc-main { flex: 1; min-width: 0; border: none; background: transparent; padding: 0; text-align: left; display: flex; flex-direction: column; gap: 4px; cursor: pointer; font-family: inherit; } .ds-doc-main:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 4px; border-radius: 6px; } .ds-doc-top { display: flex; align-items: center; gap: 8px; } .ds-doc-title { font-size: 0.9375rem; font-weight: 600; color: var(--ink-primary, #f2f3f5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-doc-excerpt { font-size: 0.835rem; color: var(--ink-muted, #949ba4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-doc-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px; font-size: 0.76rem; color: var(--ink-muted, #949ba4); } .ds-meta-chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-pill, 999px); background: var(--bg-interactive, #272b37); border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.068)); font-size: 0.74rem; color: var(--ink-secondary, #c4c9d1); } .ds-tag-pill { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--radius-xs, 6px); background: rgba(91, 110, 245, 0.12); color: #aebaff; font-size: 0.74rem; font-weight: 500; } .ds-tabular { font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Account & Sync Panel",
+      "kind": "custom",
+      "description": "Optional email-code sign-in and encrypted cross-device sync, presented as a compact settings section that keeps the local-first archive in view.",
+      "html": "<section class=\"ds-account\"><div class=\"ds-account-head\"><span class=\"ds-account-mark\">◇</span><div class=\"ds-account-title\"><strong>Account &amp; sync</strong><small>Notes are encrypted before leaving this browser.</small></div><span class=\"ds-account-status\">Optional</span></div><label for=\"ds-email\">Email address</label><div class=\"ds-account-form\"><input id=\"ds-email\" type=\"email\" placeholder=\"you@example.com\"><button type=\"button\">Send sign-in code</button></div><small class=\"ds-account-note\">A one-time code creates your account or signs you in.</small></section>",
+      "css": ".ds-account { display:grid; gap:12px; padding:4px 0 16px; border-bottom:1px solid var(--border-subtle,rgba(255,255,255,.07)); color:var(--ink-primary,#f2f3f5); font-family:var(--font-ui,Figtree,sans-serif); } .ds-account-head { display:flex; align-items:flex-start; gap:10px; } .ds-account-mark { width:34px; height:34px; display:grid; place-items:center; flex:none; border:1px solid var(--border-subtle,rgba(255,255,255,.07)); border-radius:9px; background:var(--bg-elevated,#222530); color:var(--ink-secondary,#c4c9d1); } .ds-account-title { flex:1; display:grid; gap:3px; } .ds-account-title strong { font-size:14px; font-weight:650; } .ds-account-title small,.ds-account-note { color:var(--ink-muted,#949ba4); font-size:12px; line-height:1.45; } .ds-account-status { padding:4px 8px; border:1px solid var(--border-subtle,rgba(255,255,255,.07)); border-radius:999px; background:var(--bg-recessed,#101116); color:var(--ink-muted,#949ba4); font-size:11px; } .ds-account label { color:var(--ink-secondary,#c4c9d1); font-size:12px; font-weight:600; } .ds-account-form { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; } .ds-account-form input { min-width:0; height:38px; padding:0 11px; border:1px solid var(--border-default,rgba(255,255,255,.12)); border-radius:8px; outline:none; background:var(--bg-recessed,#101116); color:var(--ink-primary,#f2f3f5); font:inherit; } .ds-account-form input:focus-visible { border-color:var(--accent,#5b6ef5); box-shadow:0 0 0 2px rgba(91,110,245,.2); } .ds-account-form button { min-height:38px; padding:0 12px; border:0; border-radius:8px; background:var(--accent-fill,#4b5ee8); color:var(--accent-ink,#fff); font:600 12px var(--font-ui,Figtree,sans-serif); cursor:pointer; } .ds-account-note { margin:0; }"
     }
   ],
   "narrative": {

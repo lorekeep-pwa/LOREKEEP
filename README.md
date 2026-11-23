@@ -52,7 +52,7 @@ LOREKEEP is a browser-based writing workspace built for people who keep stories,
 
 The application is a Progressive Web App (PWA). It can be opened as a regular website or installed from a compatible browser as a desktop application. Its core archive is local-first: documents, game records, collections, preferences, revisions, and saved cover images are kept in the browser's IndexedDB database on the current device.
 
-The hosted application does not require an account to write. There is no server-side account database or cloud synchronization layer in the current implementation. The optional cover lookup feature does contact IGDB and SteamGridDB through a small server-side proxy; that service handles search requests and image downloads, while the selected cover is copied into the local archive for future offline use.
+The hosted application does not require an account to write. Writers can optionally use email-code sign-in and end-to-end encrypted sync across devices. Notes are encrypted in the browser with a recovery phrase before they reach Neon; the local IndexedDB archive remains available offline. The optional cover lookup feature contacts IGDB and SteamGridDB through a small server-side proxy; selected covers stay in the local archive and are not synchronized.
 
 LOREKEEP is deliberately a writing tool rather than a game catalog. It does not try to keep a remote library in sync, import a user's game ownership, or decide how a story should be written. Game profiles, relationships, tags, and collections remain under the writer's control.
 
@@ -107,7 +107,7 @@ A game profile can include a title, platform, genre, developer, release year, no
 
 Game profiles can be browsed as a library or opened individually to see their associated documents. The built-in platform and genre values are defined in `src/types/models.ts` and are intended as convenient starting categories rather than an exhaustive taxonomy.
 
-Each game profile also has a playthrough journal for recording sessions, missions, or chapters. Entries can include a date and notes, and minor or major spoiler labels hide the entry title and details until explicitly revealed. Session notes are local to the browser archive and are included in workspace backups.
+Each game profile also has a playthrough journal for recording sessions, missions, or chapters. Entries can include a date and notes, and minor or major spoiler labels hide the entry title and details until explicitly revealed. Session notes are stored locally and included in workspace backups; when optional account sync is enabled, they are also synced in encrypted form.
 
 ### Collections and tags
 
@@ -172,7 +172,7 @@ The frontend and proxy have separate responsibilities:
 | Cover API (hosted) | Cloudflare Workers | Performs provider requests and proxies approved image hosts |
 | Static hosting | Cloudflare Pages | Hosts the compiled PWA and builds from GitHub `main` |
 
-The frontend does not use a remote SQL database, a sign-in provider, an analytics SDK, or an AI API.
+Optional sync uses Neon Managed Auth, a Neon Function, and Neon Postgres. The app does not use an analytics SDK or an AI API.
 
 ## Repository layout
 
@@ -222,7 +222,7 @@ The frontend does not use a remote SQL database, a sign-in provider, an analytic
 
 ## How the local data model works
 
-The current database is named `lorekeep_local_db`. Dexie initializes schema version 2 with six stores:
+The current database is named `lorekeep_local_db`. Dexie initializes schema version 3 with eight stores:
 
 | Store | Key | Important indexed fields | Purpose |
 | --- | --- | --- | --- |
@@ -232,6 +232,8 @@ The current database is named `lorekeep_local_db`. Dexie initializes schema vers
 | `revisions` | `id` | `documentId`, `createdAt` | Snapshots of document title, editor JSON, and word count |
 | `gameSessions` | `id` | `gameId`, `playedAt`, `updatedAt` | Playthrough journal entries linked to a game profile |
 | `settings` | `id` | `id` | A single `user-settings` record |
+| `syncKeys` | `id` | `id` | Non-extractable local encryption keys, scoped to the signed-in user |
+| `syncStates` | `id` | `entityType`, `recordId`, `serverRevision`, `deleted` | Local sync cursor/fingerprint metadata; no note plaintext |
 
 ### Document records
 
@@ -248,7 +250,7 @@ New document IDs use `crypto.randomUUID()` where available, with a timestamp/ran
 - Deleting a document removes its revision snapshots in the same IndexedDB transaction.
 - Archiving a document changes its archive flag; it does not erase the document.
 
-These operations are local IndexedDB transactions. There is no server-side cascade or cross-device consistency protocol.
+These operations are local IndexedDB transactions. Optional cloud sync propagates encrypted deletion markers and preserves conflicting local copies; it does not provide cross-device transactions.
 
 ### Revision history
 
@@ -388,9 +390,11 @@ Storage is scoped to the browser's origin and profile. Clearing site data, using
 
 ## Privacy and security model
 
-### What stays on the device
+### Local-first archive and optional sync
 
-LOREKEEP stores document content, game profiles, collections, tags, revision snapshots, preferences, and locally selected cover data in IndexedDB. The app has no login form and does not upload that archive to a LOREKEEP backend. The workspace backup is generated client-side and downloaded by the browser.
+LOREKEEP stores the working archive in IndexedDB and works without an account. Optional Account & sync uses Neon Auth email codes and sends encrypted copies of documents, games (without cover images), collections, revisions, and playthrough sessions to a dedicated Neon database. Encryption and decryption happen in the browser with a 256-bit AES-GCM key derived from a 24-word recovery phrase. The phrase is never sent to Neon; an encrypted key-check record lets a new device confirm the phrase even if the cloud archive has no notes yet. Neon can see account identifiers, record identifiers, record types, ciphertext sizes, and update timing, but not note contents. Local JSON backups are generated client-side and remain unencrypted, so keep exported backups private.
+
+Save the recovery phrase somewhere safe before enabling sync. It cannot be reset: if it is lost, neither Neon nor LOREKEEP can decrypt the cloud copies. A device already unlocked keeps its local copy. Covers and app settings are not synchronized. Removing a cloud-synced record sends an encrypted deletion marker so the deletion can reach other devices. Cloud sync is optional and does not replace a separate backup.
 
 ### What leaves the browser for cover lookup
 
@@ -461,7 +465,18 @@ npm run start:api
 
 It listens on `127.0.0.1` using `COVER_PROXY_PORT` (default `8787`). The standalone process is useful when working directly with the API; the frontend's built-in development middleware remains the simplest way to use the UI and proxy together.
 
-### 4. Try the local archive
+### 4. Optional Neon sync for local development
+
+The archive and editor work without Neon configuration. To use account sync, configure Neon Auth and deploy the sync Function for a Neon development branch, then place its public endpoints in ignored `.env.local`:
+
+```dotenv
+VITE_NEON_AUTH_URL=https://your-branch.neonauth.region.aws.neon.tech/lorekeep/auth
+VITE_NEON_SYNC_URL=https://your-branch-sync.compute.region.aws.neon.tech/
+```
+
+Pull the branch database connection into `.env.neon.local` with the Neon CLI, then apply checked-in schema migrations using `npm run db:migrate:neon`. Keep both environment files out of Git. Neon configuration lives in `neon.ts`, `functions/sync/`, and `migrations/`.
+
+### 5. Try the local archive
 
 Create a document from the Hub or with `Alt+N`, write a few paragraphs, and navigate to another view. The Editor save status should settle on “Saved.” Data remains in the current browser profile. Add a game manually to explore the library, or configure cover credentials to use the online cover picker.
 
@@ -475,6 +490,9 @@ Create a document from the Hub or with `Alt+N`, write a few paragraphs, and navi
 | `COVER_PROXY_PORT` | Standalone local proxy | `.env.local` | Port for `npm run start:api`; defaults to `8787` |
 | `VITE_COVER_API_BASE` | Hosted or separately hosted proxy | Pages build environment | Public base URL used by the frontend for `/api/covers/*`; leave empty for same-origin local Vite middleware |
 | `ALLOWED_ORIGIN` | Hosted Worker CORS | `worker/wrangler.toml` or Worker variable | Allowed browser origin(s); comma-separate multiple origins |
+| `VITE_NEON_AUTH_URL` | Optional email-code sign-in | `.env.local` / Pages build environment | Public Neon Auth endpoint; not a credential |
+| `VITE_NEON_SYNC_URL` | Optional encrypted sync | `.env.local` / Pages build environment | Public Neon sync Function URL; not a credential |
+| `DATABASE_URL_UNPOOLED` | Neon schema migrations | Ignored `.env.neon.local` | Private branch connection URL; never expose or commit |
 
 Vite exposes variables with the `VITE_` prefix to client code at build time. That is why only the non-sensitive Worker URL belongs in `VITE_COVER_API_BASE`; provider keys must remain on the server.
 
@@ -643,7 +661,7 @@ Plain text paste normalizes soft-wrapped lines and blank-line paragraph breaks. 
 
 ### Local edits are not visible on another computer
 
-This is expected. The current application does not sync IndexedDB between devices. Export a JSON backup from one device and import it on the other. Keep a separate copy of important backups outside the browser profile.
+Cloud sync is optional. Open Settings → Account & sync, sign in with an email code, save the recovery phrase, and enable sync. On another device, sign in with the same email and unlock the archive with that phrase. Without sync, export a JSON backup from one device and import it on the other.
 
 ### A PWA installation still displays an older version
 
@@ -655,7 +673,9 @@ Check whether it was archived, whether a search/filter is active, or whether the
 
 ## Known limitations
 
-- The archive is local to one browser origin and profile. There is no automatic sync, user account, or server-side recovery.
+- Cloud sync must be configured in the build and is optional; local writing and backups work without an account.
+- A lost end-to-end encryption recovery phrase cannot be recovered by Neon. Keep a separate copy of important backups outside the browser profile.
+- Cloud sync currently excludes cover images and app settings.
 - The cover proxy is online-only; status checks and provider searches need network access.
 - The built-in cover title matcher is heuristic. Users should inspect the title, year, and edition before choosing artwork.
 - Provider metadata is incomplete or inconsistent for some games, platforms, and editions; game fields remain editable after selection.

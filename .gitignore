@@ -9,6 +9,7 @@ worker/worker/dist/
 .env
 .env.local
 .env.*.local
+.neon
 worker/.dev.vars
 .wrangler/
 worker/.wrangler/
