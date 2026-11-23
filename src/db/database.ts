@@ -58,6 +58,10 @@ class LorekeepDatabase extends Dexie {
       syncKeys: 'id',
       syncStates: 'id, entityType, recordId, serverRevision, deleted',
     });
+
+    this.version(4).stores({
+      syncStates: 'id, entityType, recordId, remoteId, serverRevision, deleted',
+    });
   }
 }
 
