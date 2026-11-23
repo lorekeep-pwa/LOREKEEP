@@ -666,18 +666,16 @@ The design intent and product scope are documented in [DESIGN.md](DESIGN.md) and
 
 ## Contributing
 
-Changes should preserve the core properties of the application:
-
-1. Keep personal archive data in the browser unless a clearly documented, user-controlled export or integration requires otherwise.
-2. Keep provider credentials out of client code, static assets, repository history, and logs.
-3. Treat the local database schema and JSON backup shape as compatibility surfaces. When they change, plan how existing browser data and backups will continue to work.
-4. Prefer explicit relationships and user-selected metadata over assumptions based on a game's title.
-5. Keep offline writing independent of the online cover proxy.
-6. Update this README, `PRODUCT.md`, or `DEPLOY.md` when behavior or operating steps change.
-7. Run the relevant build/type-check commands for the code that changed and describe any manual checks that remain.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. The short version is: keep the archive local-first, protect user data and provider credentials, preserve existing backups when changing storage, and explain how a change was checked.
 
 The project currently uses `main` as its production deployment branch. Pull request previews and build-status comments are disabled in Cloudflare Pages.
 
+## Community standards and security
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing guide](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+
 ## License
 
-No license file is currently included in this repository. Unless a license is added, the source should be treated as “all rights reserved”; do not assume that it is licensed for redistribution or reuse.
+LOREKEEP is distributed under the [MIT License](LICENSE). You may use, modify, and redistribute the software under the terms in that file; the license text governs if this summary differs from it.
