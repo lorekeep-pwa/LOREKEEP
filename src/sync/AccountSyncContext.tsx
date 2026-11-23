@@ -4,7 +4,13 @@ import { db } from '../db/database';
 const authUrl = import.meta.env.VITE_NEON_AUTH_URL?.trim() ?? '';
 const syncUrl = import.meta.env.VITE_NEON_SYNC_URL?.trim() ?? '';
 type OtpAuthClient = {
-  getSession: () => Promise<{ data?: { user?: { id: string; email: string; name?: string | null } | null } }>;
+  getSession: () => Promise<{
+    data?: {
+      user?: { id: string; email: string; name?: string | null } | null;
+      session?: { token?: string } | null;
+    } | null;
+    error?: { message?: string } | null;
+  }>;
   token: () => Promise<{ data?: { token?: string }; error?: { message?: string } | null }>;
   signOut: () => Promise<unknown>;
   emailOtp: {
@@ -60,11 +66,20 @@ const AccountSyncContext = createContext<AccountSyncContextValue | null>(null);
 
 function getToken(): Promise<string> {
   return (async () => {
-    const result = await (await getAuthClient()).token();
-    if (result.error || !result.data?.token) {
-      throw new Error(result.error?.message || 'Could not get a secure sign-in token.');
+    const client = await getAuthClient();
+    const session = await client.getSession();
+    const sessionToken = session.data?.session?.token;
+    if (sessionToken?.split('.').length === 3) return sessionToken;
+
+    // Neon Auth can return the JWT on the session response. If it is not there,
+    // request one explicitly through Better Auth's JWT endpoint.
+    const result = await client.token();
+    const token = result.data?.token;
+    if (token?.split('.').length === 3) return token;
+    if (result.error || session.error) {
+      throw new Error(result.error?.message || session.error?.message || 'Could not get a secure sign-in token.');
     }
-    return result.data.token;
+    throw new Error('Neon Auth did not return a valid sync token. Please try syncing again.');
   })();
 }
 

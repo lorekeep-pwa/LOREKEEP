@@ -2641,8 +2641,50 @@ button:disabled {
 }
 
 @media (max-width: 560px) {
+  .lk-account-sync-head {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    column-gap: 9px;
+    row-gap: 6px;
+  }
+
+  .lk-account-sync-icon {
+    width: 30px;
+    height: 30px;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .lk-account-sync-title-wrap {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .lk-account-sync-status {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+  }
+
   .lk-account-auth-controls {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lk-account-user-line {
+    flex-wrap: wrap;
+  }
+
+  .lk-account-signout {
+    margin-left: auto;
+  }
+
+  .lk-account-error {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lk-account-error .lk-btn-ghost {
+    justify-self: start;
   }
 
   .lk-account-recovery-code {
