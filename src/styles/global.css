@@ -1560,7 +1560,8 @@ button:disabled {
   tab-size: 4;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   resize: vertical;
 }
 
