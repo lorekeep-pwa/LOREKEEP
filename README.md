@@ -96,6 +96,7 @@ The Editor provides a single writing surface with structured text formatting. It
 - A setting to gently recede the top bar, toolbar, and Floating Dock during active typing.
 - A document revision history with restore and deletion actions.
 - A collapsible heading outline that follows the current section and jumps to headings.
+- A side-by-side transcription view with a temporary source pane that preserves visible spaces and line breaks while you retype into the document.
 - Document export to Markdown, plain text, JSON, or a print-ready PDF flow.
 
 Content is stored as TipTap/ProseMirror JSON alongside derived plain text and word/character counts. This keeps formatting intact while allowing fast searches over readable text.

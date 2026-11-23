@@ -15,7 +15,9 @@ import {
   Code,
   Copy,
   ClipboardPaste,
+  Columns2,
   Download,
+  Eye,
   Feather,
   FolderKanban,
   Gamepad2,
@@ -154,11 +156,36 @@ export function EditorView({
   const [liveChars, setLiveChars] = useState(activeDoc?.charCount ?? 0);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isOutlineOpen, setIsOutlineOpen] = useState(false);
+  const [isTranscriptionMode, setIsTranscriptionMode] = useState(false);
+  const [showWhitespace, setShowWhitespace] = useState(false);
+  const [referenceText, setReferenceText] = useState('');
   const [outlineItems, setOutlineItems] = useState<Array<{ pos: number; level: number; text: string }>>([]);
   const [activeOutlinePos, setActiveOutlinePos] = useState<number | null>(null);
   const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [contextMenuError, setContextMenuError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!activeDoc?.id) {
+      setReferenceText('');
+      return;
+    }
+    try {
+      setReferenceText(window.sessionStorage.getItem(`lorekeep:transcription:${activeDoc.id}`) ?? '');
+    } catch {
+      setReferenceText('');
+    }
+  }, [activeDoc?.id]);
+
+  const handleReferenceChange = (value: string) => {
+    setReferenceText(value);
+    if (!activeDoc?.id) return;
+    try {
+      window.sessionStorage.setItem(`lorekeep:transcription:${activeDoc.id}`, value);
+    } catch {
+      // The reference remains usable for the current view when session storage is unavailable.
+    }
+  };
 
   const loadedDocIdRef = useRef<string | null>(null);
   const saveTimerRef = useRef<number | null>(null);
@@ -762,6 +789,21 @@ export function EditorView({
               </>
             )}
 
+            <button
+              type="button"
+              className={`lk-tool-btn lk-transcription-toggle ${isTranscriptionMode ? 'is-active' : ''}`}
+              onClick={() => {
+                setIsTranscriptionMode((enabled) => !enabled);
+                setIsOutlineOpen(false);
+              }}
+              title="Open side-by-side transcription view"
+              aria-label="Toggle transcription view"
+              aria-pressed={isTranscriptionMode}
+            >
+              <Columns2 size={14} />
+              <span>Transcribe</span>
+            </button>
+
             <span className="lk-format-sep" aria-hidden="true" />
 
             <button
@@ -935,7 +977,7 @@ export function EditorView({
       </div>
 
       {/* Main Clean Writing Sheet */}
-      <div className={`lk-editor-workspace ${isOutlineOpen && !isFocusMode ? 'has-outline' : ''}`}>
+      <div className={`lk-editor-workspace ${isOutlineOpen && !isFocusMode && !isTranscriptionMode ? 'has-outline' : ''} ${isTranscriptionMode ? 'is-transcription' : ''}`}>
         {isOutlineOpen && !isFocusMode && (
           <aside className="lk-editor-outline" aria-label="Document outline">
             <div className="lk-editor-outline-head">
@@ -968,6 +1010,54 @@ export function EditorView({
             ) : (
               <p className="lk-editor-outline-empty">Add Heading 1, 2, or 3 from the toolbar to build an outline.</p>
             )}
+          </aside>
+        )}
+        {isTranscriptionMode && (
+          <aside className="lk-transcription-reference" aria-label="Transcription reference panel">
+            <div className="lk-transcription-reference-head">
+              <div>
+                <h2>Source reference</h2>
+                <p>Paste text from Antigravity or another source. Line breaks and spaces stay visible here.</p>
+              </div>
+              <span className="lk-transcription-count tabular">
+                {referenceText ? referenceText.split(/\r\n|\r|\n/).length : 0} lines
+              </span>
+            </div>
+            <div className="lk-transcription-reference-tools">
+              <span>{showWhitespace ? '· spaces  → tabs  ↵ line breaks' : 'Paste or type the source text below'}</span>
+              <button
+                type="button"
+                className="lk-btn lk-btn-ghost lk-btn-sm"
+                onClick={() => setShowWhitespace((show) => !show)}
+                aria-pressed={showWhitespace}
+              >
+                <Eye size={13} />
+                {showWhitespace ? 'Hide markers' : 'Show whitespace'}
+              </button>
+            </div>
+            {showWhitespace ? (
+              <pre className="lk-transcription-reference-text lk-transcription-whitespace" aria-label="Source text with visible whitespace">
+                {referenceText
+                  ? referenceText.split(/\r\n|\r|\n/).map((line, index, lines) => (
+                    <span className="lk-transcription-visible-line" key={index}>
+                      {line.replace(/ /g, '·').replace(/\t/g, '→') || '\u00a0'}
+                      {index < lines.length - 1 && <span className="lk-transcription-line-break">↵</span>}
+                    </span>
+                  ))
+                  : <span className="lk-transcription-empty">Paste source text to inspect its spacing and line breaks.</span>}
+              </pre>
+            ) : (
+              <textarea
+                className="lk-transcription-reference-text"
+                value={referenceText}
+                onChange={(event) => handleReferenceChange(event.target.value)}
+                placeholder="Click here and paste the source text…"
+                aria-label="Paste or type source text for transcription"
+                spellCheck={false}
+                wrap="off"
+              />
+            )}
+            <p className="lk-transcription-footnote">Reference text stays in this browser session and is never added to your document. In the editor, use Shift+Enter for a line break without extra paragraph spacing.</p>
           </aside>
         )}
         <article className={`lk-editor-canvas width-${settings.editorWidth}`}>

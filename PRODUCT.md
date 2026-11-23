@@ -37,6 +37,7 @@ Unlike generic note-taking apps built around permanent multi-pane sidebars, clou
 - Hub Workspace with recent drafts, favorites, quick-create actions, and game shortcuts, starting from an empty archive with clean empty states.
 - Immersive Editor powered by TipTap: wide distraction-free writing canvas, no artificial character limits, rich formatting (headings, bold/italic/underline/strike, bullet & ordered lists, blockquotes, horizontal rules, code/inline code), silent local autosave to IndexedDB, optional word and character counter, and fullscreen Focus Mode; zero popups, forced autocorrect, or writing interruptions.
 - Collapsible editor outline generated from document headings, with the active heading tracked and direct navigation to each section.
+- Side-by-side transcription mode with a session-only reference pane, preserving visible source whitespace and keeping the reference out of the document and its backups.
 - Manual Game Archive: create, edit, and delete game profiles with title, customizable cover (local image upload / custom cover visual), platform, genre, developer, and associated stories—zero external API dependencies.
 - Per-game playthrough journal for dated session, mission, and chapter notes, including spoiler protection and local backup support.
 - Document lifecycle & organization: create, rename, duplicate, delete, archive, favorite; custom collections, tags, and instant local search across documents, games, collections, and tags.
