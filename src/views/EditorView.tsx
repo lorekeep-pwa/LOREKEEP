@@ -1054,7 +1054,7 @@ export function EditorView({
                 placeholder="Click here and paste the source text…"
                 aria-label="Paste or type source text for transcription"
                 spellCheck={false}
-                wrap="off"
+                wrap="soft"
               />
             )}
             <p className="lk-transcription-footnote">Reference text stays in this browser session and is never added to your document. In the editor, use Shift+Enter for a line break without extra paragraph spacing.</p>

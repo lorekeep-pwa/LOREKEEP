@@ -1554,11 +1554,12 @@ button:disabled {
   outline: none;
   background: var(--bg-recessed);
   color: var(--ink-primary);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  line-height: 1.65;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  line-height: 1.6;
   tab-size: 4;
-  white-space: pre;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   overflow: auto;
   resize: vertical;
 }
