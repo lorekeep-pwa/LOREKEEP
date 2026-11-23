@@ -36,9 +36,12 @@ Unlike generic note-taking apps built around permanent multi-pane sidebars, clou
 - Complete Hybrid Floating Workspace UI (compact top bar, bottom Floating Dock, `Ctrl + K` Command Palette, adaptive views).
 - Hub Workspace with recent drafts, favorites, quick-create actions, and game shortcuts, starting from an empty archive with clean empty states.
 - Immersive Editor powered by TipTap: wide distraction-free writing canvas, no artificial character limits, rich formatting (headings, bold/italic/underline/strike, bullet & ordered lists, blockquotes, horizontal rules, code/inline code), silent local autosave to IndexedDB, optional word and character counter, and fullscreen Focus Mode; zero popups, forced autocorrect, or writing interruptions.
+- Collapsible editor outline generated from document headings, with the active heading tracked and direct navigation to each section.
 - Manual Game Archive: create, edit, and delete game profiles with title, customizable cover (local image upload / custom cover visual), platform, genre, developer, and associated stories—zero external API dependencies.
+- Per-game playthrough journal for dated session, mission, and chapter notes, including spoiler protection and local backup support.
 - Document lifecycle & organization: create, rename, duplicate, delete, archive, favorite; custom collections, tags, and instant local search across documents, games, collections, and tags.
 - Real Local-First persistence via IndexedDB (Dexie.js).
+- Full workspace backup center with last-export tracking and configurable in-app reminders (monthly by default).
 
 ### Planned Phase 2 Scope (After v1 Feedback)
 - Document revision history (snapshots, diff/inspection, restore).

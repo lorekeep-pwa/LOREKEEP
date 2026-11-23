@@ -95,6 +95,7 @@ The Editor provides a single writing surface with structured text formatting. It
 - A setting to turn browser spellcheck on or off; it is off by default.
 - A setting to gently recede the top bar, toolbar, and Floating Dock during active typing.
 - A document revision history with restore and deletion actions.
+- A collapsible heading outline that follows the current section and jumps to headings.
 - Document export to Markdown, plain text, JSON, or a print-ready PDF flow.
 
 Content is stored as TipTap/ProseMirror JSON alongside derived plain text and word/character counts. This keeps formatting intact while allowing fast searches over readable text.
@@ -104,6 +105,8 @@ Content is stored as TipTap/ProseMirror JSON alongside derived plain text and wo
 A game profile can include a title, platform, genre, developer, release year, notes, a cover, and an accent color. The profile can be created manually or populated in part by selecting an external cover result. Games can be edited or removed; deleting a game unlinks its stories while leaving the documents themselves in the archive.
 
 Game profiles can be browsed as a library or opened individually to see their associated documents. The built-in platform and genre values are defined in `src/types/models.ts` and are intended as convenient starting categories rather than an exhaustive taxonomy.
+
+Each game profile also has a playthrough journal for recording sessions, missions, or chapters. Entries can include a date and notes, and minor or major spoiler labels hide the entry title and details until explicitly revealed. Session notes are local to the browser archive and are included in workspace backups.
 
 ### Collections and tags
 
@@ -119,7 +122,7 @@ The compact top bar opens a Command Palette with `Ctrl+K` (or `⌘K` on macOS). 
 
 ### Local backups and individual exports
 
-Settings can export the complete workspace as a versioned JSON file or import a backup in merge or replace mode. Individual documents can be exported separately. A full workspace backup includes records from the document, game, collection, revision, and settings stores; game cover data is included because the image is stored with the game record.
+Settings can export the complete workspace as a versioned JSON file or import a backup in merge or replace mode. The Backup Center records the last full export and offers an in-app monthly reminder by default, with weekly and disabled options. The Hub surfaces a reminder when a backup is due and the archive contains data. Individual documents can be exported separately. A full workspace backup includes documents, games, collections, revisions, playthrough session notes, and settings; game cover data is included because the image is stored with the game record.
 
 ## Architecture at a glance
 
@@ -218,7 +221,7 @@ The frontend does not use a remote SQL database, a sign-in provider, an analytic
 
 ## How the local data model works
 
-The current database is named `lorekeep_local_db`. Dexie initializes schema version 1 with five stores:
+The current database is named `lorekeep_local_db`. Dexie initializes schema version 2 with six stores:
 
 | Store | Key | Important indexed fields | Purpose |
 | --- | --- | --- | --- |
@@ -226,6 +229,7 @@ The current database is named `lorekeep_local_db`. Dexie initializes schema vers
 | `games` | `id` | `title`, `platform`, `genre`, `developer`, `updatedAt`, `createdAt` | Manually managed game profiles and local cover data |
 | `collections` | `id` | `name`, `updatedAt`, `createdAt` | Named groups for related documents |
 | `revisions` | `id` | `documentId`, `createdAt` | Snapshots of document title, editor JSON, and word count |
+| `gameSessions` | `id` | `gameId`, `playedAt`, `updatedAt` | Playthrough journal entries linked to a game profile |
 | `settings` | `id` | `id` | A single `user-settings` record |
 
 ### Document records
@@ -578,12 +582,13 @@ Open Settings and choose **Export backup (.json)**. The exported file uses an en
 ```json
 {
   "app": "LOREKEEP",
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "exportedAt": "2026-01-01T12:00:00.000Z",
   "data": {
     "games": [],
     "collections": [],
     "documents": [],
+    "gameSessions": [],
     "revisions": [],
     "settings": []
   }
@@ -598,7 +603,7 @@ Merge writes imported records into the existing stores using their IDs. Matching
 
 ### Replace
 
-Replace clears documents, games, collections, and revisions before loading records from the backup in one IndexedDB transaction. Imported settings are applied when present. Export a fresh backup before replacing an archive that matters to you.
+Replace clears documents, games, collections, revisions, and game session notes before loading records from the backup in one IndexedDB transaction. Imported settings are applied when present. Older backups without a `gameSessions` array remain importable. Export a fresh backup before replacing an archive that matters to you.
 
 ### Individual document exports
 

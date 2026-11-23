@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Download,
+  CalendarClock,
+  CheckCircle2,
   HardDrive,
   ShieldCheck,
   Trash2,
@@ -8,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import type { AppSettings, EditorFont, EditorWidth } from '../types/models';
+import { SelectField } from './SelectField';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -42,6 +45,19 @@ export function SettingsModal({
   );
   const [busy, setBusy] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const reminderInterval = settings.backupReminderInterval ?? 'monthly';
+  const lastBackupAt = settings.lastBackupAt ?? null;
+  const nextBackupAt = lastBackupAt === null || reminderInterval === 'never'
+    ? null
+    : (() => {
+        const due = new Date(lastBackupAt);
+        if (reminderInterval === 'monthly') due.setMonth(due.getMonth() + 1);
+        else due.setDate(due.getDate() + 7);
+        return due.getTime();
+      })();
+  const hasArchive = counts.documents > 0 || counts.games > 0 || counts.collections > 0;
+  const backupIsDue = hasArchive && reminderInterval !== 'never' &&
+    (lastBackupAt === null || (nextBackupAt !== null && Date.now() >= nextBackupAt));
 
   useEffect(() => {
     if (!isOpen) {
@@ -255,8 +271,57 @@ export function SettingsModal({
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.8rem', color: 'var(--ink-muted)' }}>
               <ShieldCheck size={14} style={{ flexShrink: 0 }} aria-hidden="true" />
               <span>
-                Everything stays on your PC and works offline. Export a portable JSON backup anytime (includes documents, revisions, collections, games, and local covers).
+                Everything stays on your PC and works offline. Export a portable JSON backup anytime (includes documents, revisions, collections, games, session notes, settings, and local covers).
               </span>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 16,
+                flexWrap: 'wrap',
+                padding: '11px 12px',
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-subtle)',
+              }}
+            >
+              <div style={{ minWidth: 200, flex: '1 1 260px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: '0.82rem', fontWeight: 600 }}>
+                  {backupIsDue ? (
+                    <CalendarClock size={14} color="var(--state-favorite)" aria-hidden="true" />
+                  ) : (
+                    <CheckCircle2 size={14} color="var(--state-success)" aria-hidden="true" />
+                  )}
+                  {backupIsDue ? 'Backup recommended' : 'Backup status'}
+                </div>
+                <div style={{ marginTop: 4, fontSize: '0.77rem', lineHeight: 1.5, color: 'var(--ink-muted)' }}>
+                  {!hasArchive
+                    ? 'Your archive is empty. Backup reminders start when you add content.'
+                    : lastBackupAt
+                      ? `Last full backup: ${new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(lastBackupAt)}`
+                      : 'No full backup has been downloaded from this browser yet.'}
+                  {backupIsDue && <span> Export a copy to keep your archive safe.</span>}
+                </div>
+              </div>
+              <div style={{ minWidth: 155 }}>
+                <label className="lk-label" htmlFor="lk-backup-reminder" style={{ marginBottom: 6 }}>
+                  In-app reminder
+                </label>
+                <SelectField
+                  id="lk-backup-reminder"
+                  ariaLabel="Backup reminder frequency"
+                  value={reminderInterval}
+                  options={[
+                    { value: 'monthly', label: 'Monthly' },
+                    { value: 'weekly', label: 'Weekly' },
+                    { value: 'never', label: 'Off' },
+                  ]}
+                  onChange={(value) => onUpdateSettings({ backupReminderInterval: value as AppSettings['backupReminderInterval'] })}
+                />
+              </div>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
@@ -270,6 +335,11 @@ export function SettingsModal({
                   try {
                     await onExportBackup();
                     setBackupMessage({ type: 'ok', text: 'Full JSON backup downloaded.' });
+                  } catch (err) {
+                    setBackupMessage({
+                      type: 'err',
+                      text: err instanceof Error ? err.message : 'Backup export failed.',
+                    });
                   } finally {
                     setBusy(false);
                   }

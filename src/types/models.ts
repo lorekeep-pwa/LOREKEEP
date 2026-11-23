@@ -14,6 +14,19 @@ export interface Game {
   updatedAt: number;
 }
 
+export type SessionSpoilerLevel = 'none' | 'minor' | 'major';
+
+export interface GameSession {
+  id: string;
+  gameId: string;
+  title: string;
+  notes: string;
+  playedAt: number;
+  spoilerLevel: SessionSpoilerLevel;
+  createdAt: number;
+  updatedAt: number;
+}
+
 export interface Collection {
   id: string;
   name: string;
@@ -50,6 +63,7 @@ export interface DocumentRevision {
 
 export type EditorFont = 'sans' | 'serif';
 export type EditorWidth = 'narrow' | 'comfortable' | 'wide';
+export type BackupReminderInterval = 'monthly' | 'weekly' | 'never';
 
 export interface AppSettings {
   id: 'user-settings';
@@ -58,6 +72,8 @@ export interface AppSettings {
   editorWidth: EditorWidth;
   spellcheck: boolean;
   autoHideChromeWhileTyping: boolean;
+  lastBackupAt: number | null;
+  backupReminderInterval: BackupReminderInterval;
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -67,6 +83,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   editorWidth: 'comfortable',
   spellcheck: false,
   autoHideChromeWhileTyping: true,
+  lastBackupAt: null,
+  backupReminderInterval: 'monthly',
 };
 
 export const GAME_PLATFORMS = [

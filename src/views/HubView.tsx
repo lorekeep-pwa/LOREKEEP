@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   ArrowRight,
   Feather,
+  HardDrive,
   FolderKanban,
   Gamepad2,
   Hash,
@@ -16,6 +17,8 @@ interface HubViewProps {
   documents: LoreDocument[];
   games: Game[];
   collections: Collection[];
+  backupReminderDue: boolean;
+  onOpenBackupCenter: () => void;
   onCreateDocument: () => void;
   onOpenDocument: (id: string) => void;
   onRenameDocument: (id: string, title: string) => void;
@@ -33,6 +36,8 @@ export function HubView({
   documents,
   games,
   collections,
+  backupReminderDue,
+  onOpenBackupCenter,
   onCreateDocument,
   onOpenDocument,
   onRenameDocument,
@@ -114,6 +119,20 @@ export function HubView({
           </button>
         </div>
       </div>
+
+      {backupReminderDue && (
+        <section className="lk-backup-reminder" aria-label="Backup reminder" role="status">
+          <HardDrive size={17} aria-hidden="true" />
+          <div className="lk-backup-reminder-copy">
+            <strong>Your monthly backup is due</strong>
+            <span>Download a fresh copy of your archive, including stories, covers, revisions, and session notes.</span>
+          </div>
+          <button type="button" className="lk-btn lk-btn-secondary lk-btn-sm" onClick={onOpenBackupCenter}>
+            Open backup center
+            <ArrowRight size={14} />
+          </button>
+        </section>
+      )}
 
       <div className="lk-hub-grid">
         {/* Left Main Stage: Documents & Favorites */}

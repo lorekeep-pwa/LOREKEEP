@@ -5,6 +5,7 @@ import {
   type Collection,
   type DocumentRevision,
   type Game,
+  type GameSession,
   type LoreDocument,
 } from '../types/models';
 import {
@@ -18,6 +19,7 @@ class LorekeepDatabase extends Dexie {
   collections!: EntityTable<Collection, 'id'>;
   documents!: EntityTable<LoreDocument, 'id'>;
   revisions!: EntityTable<DocumentRevision, 'id'>;
+  gameSessions!: EntityTable<GameSession, 'id'>;
   settings!: EntityTable<AppSettings, 'id'>;
 
   constructor() {
@@ -30,6 +32,16 @@ class LorekeepDatabase extends Dexie {
         'id, title, gameId, collectionId, *tags, isFavorite, isArchived, updatedAt, createdAt',
       revisions: 'id, documentId, createdAt',
       settings: 'id',
+    });
+
+    this.version(2).stores({
+      games: 'id, title, platform, genre, developer, updatedAt, createdAt',
+      collections: 'id, name, updatedAt, createdAt',
+      documents:
+        'id, title, gameId, collectionId, *tags, isFavorite, isArchived, updatedAt, createdAt',
+      revisions: 'id, documentId, createdAt',
+      settings: 'id',
+      gameSessions: 'id, gameId, playedAt, updatedAt',
     });
   }
 }
@@ -50,7 +62,16 @@ export function generateId(): string {
 
 export async function ensureSettings(): Promise<AppSettings> {
   const existing = await db.settings.get('user-settings');
-  if (existing) return existing;
+  if (existing) {
+    const normalized = { ...DEFAULT_SETTINGS, ...existing };
+    if (
+      existing.lastBackupAt === undefined ||
+      existing.backupReminderInterval === undefined
+    ) {
+      await db.settings.put(normalized);
+    }
+    return normalized;
+  }
   await db.settings.put(DEFAULT_SETTINGS);
   return DEFAULT_SETTINGS;
 }
@@ -181,10 +202,44 @@ export async function updateGame(
 }
 
 export async function deleteGame(id: string): Promise<void> {
-  await db.transaction('rw', db.games, db.documents, async () => {
+  await db.transaction('rw', db.games, db.documents, db.gameSessions, async () => {
     await db.documents.where('gameId').equals(id).modify({ gameId: null });
+    await db.gameSessions.where('gameId').equals(id).delete();
     await db.games.delete(id);
   });
+}
+
+export async function createGameSession(input: {
+  gameId: string;
+  title: string;
+  notes: string;
+  playedAt: number;
+  spoilerLevel: GameSession['spoilerLevel'];
+}): Promise<GameSession> {
+  const now = Date.now();
+  const session: GameSession = {
+    id: generateId(),
+    gameId: input.gameId,
+    title: input.title.trim(),
+    notes: input.notes.trim(),
+    playedAt: input.playedAt,
+    spoilerLevel: input.spoilerLevel,
+    createdAt: now,
+    updatedAt: now,
+  };
+  await db.gameSessions.add(session);
+  return session;
+}
+
+export async function updateGameSession(
+  id: string,
+  patch: Partial<Pick<GameSession, 'title' | 'notes' | 'playedAt' | 'spoilerLevel'>>,
+): Promise<void> {
+  await db.gameSessions.update(id, { ...patch, updatedAt: Date.now() });
+}
+
+export async function deleteGameSession(id: string): Promise<void> {
+  await db.gameSessions.delete(id);
 }
 
 export async function createCollection(input: {
@@ -296,17 +351,18 @@ export async function deleteDocumentRevision(revisionId: string): Promise<void> 
 }
 
 export async function buildWorkspaceBackup(): Promise<WorkspaceBackupPayload> {
-  const [games, collections, documents, revisions, settings] = await Promise.all([
+  const [games, collections, documents, revisions, settings, gameSessions] = await Promise.all([
     db.games.toArray(),
     db.collections.toArray(),
     db.documents.toArray(),
     db.revisions.toArray(),
     db.settings.toArray(),
+    db.gameSessions.toArray(),
   ]);
 
   return {
     app: 'LOREKEEP',
-    schemaVersion: 1,
+    schemaVersion: 2,
     exportedAt: new Date().toISOString(),
     data: {
       games,
@@ -314,6 +370,7 @@ export async function buildWorkspaceBackup(): Promise<WorkspaceBackupPayload> {
       documents,
       revisions,
       settings,
+      gameSessions,
     },
   };
 }
@@ -321,7 +378,13 @@ export async function buildWorkspaceBackup(): Promise<WorkspaceBackupPayload> {
 export async function importWorkspaceBackup(
   rawJson: string,
   mode: 'merge' | 'replace',
-): Promise<{ games: number; collections: number; documents: number; revisions: number }> {
+): Promise<{
+  games: number;
+  collections: number;
+  documents: number;
+  revisions: number;
+  gameSessions: number;
+}> {
   let parsed: Partial<WorkspaceBackupPayload>;
   try {
     parsed = JSON.parse(rawJson) as Partial<WorkspaceBackupPayload>;
@@ -338,22 +401,25 @@ export async function importWorkspaceBackup(
   const documents = Array.isArray(parsed.data.documents) ? parsed.data.documents : [];
   const revisions = Array.isArray(parsed.data.revisions) ? parsed.data.revisions : [];
   const settings = Array.isArray(parsed.data.settings) ? parsed.data.settings : [];
+  const gameSessions = Array.isArray(parsed.data.gameSessions) ? parsed.data.gameSessions : [];
 
   await db.transaction(
     'rw',
-    [db.games, db.collections, db.documents, db.revisions, db.settings],
+    [db.games, db.collections, db.documents, db.revisions, db.settings, db.gameSessions],
     async () => {
       if (mode === 'replace') {
         await db.documents.clear();
         await db.games.clear();
         await db.collections.clear();
         await db.revisions.clear();
+        await db.gameSessions.clear();
       }
       if (games.length) await db.games.bulkPut(games);
       if (collections.length) await db.collections.bulkPut(collections);
       if (documents.length) await db.documents.bulkPut(documents);
       if (revisions.length) await db.revisions.bulkPut(revisions);
       if (settings.length) await db.settings.bulkPut(settings);
+      if (gameSessions.length) await db.gameSessions.bulkPut(gameSessions);
     },
   );
 
@@ -362,18 +428,20 @@ export async function importWorkspaceBackup(
     collections: collections.length,
     documents: documents.length,
     revisions: revisions.length,
+    gameSessions: gameSessions.length,
   };
 }
 
 export async function clearAllWorkspaceData(): Promise<void> {
   await db.transaction(
     'rw',
-    [db.documents, db.games, db.collections, db.revisions],
+    [db.documents, db.games, db.collections, db.revisions, db.gameSessions],
     async () => {
       await db.documents.clear();
       await db.games.clear();
       await db.collections.clear();
       await db.revisions.clear();
+      await db.gameSessions.clear();
     },
   );
 }

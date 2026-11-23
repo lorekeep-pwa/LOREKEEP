@@ -26,6 +26,7 @@ import {
   Italic,
   List,
   ListOrdered,
+  ListTree,
   Maximize2,
   Minimize2,
   Minus,
@@ -152,6 +153,9 @@ export function EditorView({
   const [liveWords, setLiveWords] = useState(activeDoc?.wordCount ?? 0);
   const [liveChars, setLiveChars] = useState(activeDoc?.charCount ?? 0);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isOutlineOpen, setIsOutlineOpen] = useState(false);
+  const [outlineItems, setOutlineItems] = useState<Array<{ pos: number; level: number; text: string }>>([]);
+  const [activeOutlinePos, setActiveOutlinePos] = useState<number | null>(null);
   const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [contextMenuError, setContextMenuError] = useState<string | null>(null);
@@ -262,6 +266,42 @@ export function EditorView({
       });
     },
   });
+
+  const refreshOutline = useCallback(() => {
+    if (!editor || editor.isDestroyed) return;
+    const headings: Array<{ pos: number; level: number; text: string }> = [];
+    editor.state.doc.descendants((node, pos) => {
+      if (node.type.name === 'heading') {
+        headings.push({
+          pos,
+          level: Number(node.attrs.level) || 1,
+          text: node.textContent.trim() || 'Untitled heading',
+        });
+      }
+    });
+    setOutlineItems((current) =>
+      current.length === headings.length &&
+      current.every((item, index) =>
+        item.pos === headings[index].pos &&
+        item.level === headings[index].level &&
+        item.text === headings[index].text,
+      )
+        ? current
+        : headings,
+    );
+    const selectionPos = editor.state.selection.from;
+    const active = headings.filter((heading) => heading.pos <= selectionPos).at(-1);
+    setActiveOutlinePos(active?.pos ?? headings[0]?.pos ?? null);
+  }, [editor]);
+
+  useEffect(() => {
+    if (!editor || editor.isDestroyed) return;
+    refreshOutline();
+    editor.on('transaction', refreshOutline);
+    return () => {
+      editor.off('transaction', refreshOutline);
+    };
+  }, [editor, refreshOutline]);
 
   const pasteFromClipboard = useCallback(async (plainTextOnly: boolean) => {
     if (!editor) return;
@@ -726,6 +766,19 @@ export function EditorView({
 
             <button
               type="button"
+              className={`lk-tool-btn ${isOutlineOpen ? 'is-active' : ''}`}
+              onClick={() => setIsOutlineOpen((open) => !open)}
+              title="Document outline"
+              aria-label="Toggle document outline"
+              aria-expanded={isOutlineOpen}
+            >
+              <ListTree size={14} />
+            </button>
+
+            <span className="lk-format-sep" aria-hidden="true" />
+
+            <button
+              type="button"
               className="lk-tool-btn"
               onClick={() => onToggleFavorite(activeDoc.id)}
               title={activeDoc.isFavorite ? 'Remove from favorites' : 'Add to favorites'}
@@ -882,7 +935,42 @@ export function EditorView({
       </div>
 
       {/* Main Clean Writing Sheet */}
-      <article className={`lk-editor-canvas width-${settings.editorWidth}`}>
+      <div className={`lk-editor-workspace ${isOutlineOpen && !isFocusMode ? 'has-outline' : ''}`}>
+        {isOutlineOpen && !isFocusMode && (
+          <aside className="lk-editor-outline" aria-label="Document outline">
+            <div className="lk-editor-outline-head">
+              <span>Outline</span>
+              <button
+                type="button"
+                className="lk-icon-btn"
+                onClick={() => setIsOutlineOpen(false)}
+                aria-label="Close document outline"
+              >
+                <X size={14} />
+              </button>
+            </div>
+            {outlineItems.length ? (
+              <nav aria-label="Headings in this document" className="lk-editor-outline-list">
+                {outlineItems.map((item) => (
+                  <button
+                    key={`${item.pos}-${item.level}`}
+                    type="button"
+                    className={`lk-editor-outline-item level-${item.level} ${activeOutlinePos === item.pos ? 'is-active' : ''}`}
+                    title={item.text}
+                    onClick={() => {
+                      editor?.chain().focus().setTextSelection(item.pos + 1).scrollIntoView().run();
+                    }}
+                  >
+                    {item.text}
+                  </button>
+                ))}
+              </nav>
+            ) : (
+              <p className="lk-editor-outline-empty">Add Heading 1, 2, or 3 from the toolbar to build an outline.</p>
+            )}
+          </aside>
+        )}
+        <article className={`lk-editor-canvas width-${settings.editorWidth}`}>
         <input
           type="text"
           className="lk-editor-title"
@@ -995,7 +1083,8 @@ export function EditorView({
         >
           <EditorContent editor={editor} />
         </div>
-      </article>
+        </article>
+      </div>
 
       {contextMenu && createPortal(
         <div

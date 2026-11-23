@@ -9,14 +9,31 @@ import {
   Pencil,
   Plus,
   Search,
+  CalendarDays,
+  Eye,
+  EyeOff,
   Trash2,
 } from 'lucide-react';
-import type { Collection, Game, LoreDocument } from '../types/models';
+import type { Collection, Game, GameSession, LoreDocument, SessionSpoilerLevel } from '../types/models';
 import { DocumentRow } from '../components/DocumentRow';
 import { GameCover } from '../components/GameCover';
+import { SelectField } from '../components/SelectField';
+
+function toDateInputValue(timestamp: number): string {
+  const date = new Date(timestamp);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${date.getFullYear()}-${month}-${day}`;
+}
+
+function fromDateInputValue(value: string): number {
+  const [year, month, day] = value.split('-').map(Number);
+  return new Date(year, month - 1, day, 12).getTime();
+}
 
 interface GamesViewProps {
   games: Game[];
+  sessions: GameSession[];
   documents: LoreDocument[];
   collections: Collection[];
   selectedGameId: string | null;
@@ -24,6 +41,18 @@ interface GamesViewProps {
   onOpenNewGameModal: () => void;
   onEditGame: (game: Game) => void;
   onDeleteGame: (gameId: string) => void;
+  onCreateGameSession: (session: {
+    gameId: string;
+    title: string;
+    notes: string;
+    playedAt: number;
+    spoilerLevel: SessionSpoilerLevel;
+  }) => Promise<void>;
+  onUpdateGameSession: (
+    id: string,
+    patch: Pick<GameSession, 'title' | 'notes' | 'playedAt' | 'spoilerLevel'>,
+  ) => Promise<void>;
+  onDeleteGameSession: (id: string) => void;
   onCreateDocumentForGame: (gameId: string) => void;
   onOpenDocument: (docId: string) => void;
   onRenameDocument: (docId: string, title: string) => void;
@@ -35,6 +64,7 @@ interface GamesViewProps {
 
 export function GamesView({
   games,
+  sessions,
   documents,
   collections,
   selectedGameId,
@@ -42,6 +72,9 @@ export function GamesView({
   onOpenNewGameModal,
   onEditGame,
   onDeleteGame,
+  onCreateGameSession,
+  onUpdateGameSession,
+  onDeleteGameSession,
   onCreateDocumentForGame,
   onOpenDocument,
   onRenameDocument,
@@ -53,6 +86,15 @@ export function GamesView({
   const [search, setSearch] = useState('');
   const [platformFilter, setPlatformFilter] = useState<string>('all');
   const [confirmDeleteGame, setConfirmDeleteGame] = useState(false);
+  const [sessionTitle, setSessionTitle] = useState('');
+  const [sessionNotes, setSessionNotes] = useState('');
+  const [sessionDate, setSessionDate] = useState(() => toDateInputValue(Date.now()));
+  const [sessionSpoilerLevel, setSessionSpoilerLevel] = useState<SessionSpoilerLevel>('none');
+  const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
+  const [savingSession, setSavingSession] = useState(false);
+  const [sessionError, setSessionError] = useState<string | null>(null);
+  const [revealedSessionIds, setRevealedSessionIds] = useState<Set<string>>(() => new Set());
+  const [confirmDeleteSessionId, setConfirmDeleteSessionId] = useState<string | null>(null);
 
   const selectedGame = useMemo(
     () => (selectedGameId ? games.find((g) => g.id === selectedGameId) ?? null : null),
@@ -66,7 +108,70 @@ export function GamesView({
 
   useEffect(() => {
     setConfirmDeleteGame(false);
+    setSessionTitle('');
+    setSessionNotes('');
+    setSessionDate(toDateInputValue(Date.now()));
+    setSessionSpoilerLevel('none');
+    setEditingSessionId(null);
+    setConfirmDeleteSessionId(null);
+    setSessionError(null);
   }, [selectedGameId]);
+
+  const linkedSessions = useMemo(
+    () => sessions
+      .filter((session) => session.gameId === selectedGameId)
+      .sort((a, b) => b.playedAt - a.playedAt),
+    [sessions, selectedGameId],
+  );
+
+  const resetSessionForm = () => {
+    setSessionTitle('');
+    setSessionNotes('');
+    setSessionDate(toDateInputValue(Date.now()));
+    setSessionSpoilerLevel('none');
+    setEditingSessionId(null);
+    setSessionError(null);
+  };
+
+  const beginEditSession = (session: GameSession) => {
+    setEditingSessionId(session.id);
+    setSessionTitle(session.title);
+    setSessionNotes(session.notes);
+    setSessionDate(toDateInputValue(session.playedAt));
+    setSessionSpoilerLevel(session.spoilerLevel);
+    setConfirmDeleteSessionId(null);
+  };
+
+  const saveSession = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!selectedGame || !sessionTitle.trim() || savingSession) return;
+    setSavingSession(true);
+    setSessionError(null);
+    try {
+      const session = {
+        gameId: selectedGame.id,
+        title: sessionTitle.trim(),
+        notes: sessionNotes.trim(),
+        playedAt: fromDateInputValue(sessionDate),
+        spoilerLevel: sessionSpoilerLevel,
+      };
+      if (editingSessionId) {
+        await onUpdateGameSession(editingSessionId, {
+          title: session.title,
+          notes: session.notes,
+          playedAt: session.playedAt,
+          spoilerLevel: session.spoilerLevel,
+        });
+      } else {
+        await onCreateGameSession(session);
+      }
+      resetSessionForm();
+    } catch {
+      setSessionError('Could not save this session note. Please try again.');
+    } finally {
+      setSavingSession(false);
+    }
+  };
 
   const docCountByGame = useMemo(() => {
     const counts = new Map<string, number>();
@@ -223,6 +328,149 @@ export function GamesView({
               )}
             </div>
           </div>
+        </section>
+
+        <section className="lk-panel lk-session-panel" aria-label="Playthrough session journal">
+          <div className="lk-panel-head">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <h2 className="lk-panel-title">
+                <CalendarDays size={15} color="var(--accent)" aria-hidden="true" />
+                Playthrough journal
+              </h2>
+              <span className="lk-count-pill">{linkedSessions.length}</span>
+            </div>
+          </div>
+
+          <form className="lk-session-form" onSubmit={(event) => void saveSession(event)}>
+            <div className="lk-form-row">
+              <div className="lk-field">
+                <label className="lk-label" htmlFor="lk-session-title">Session, mission, or chapter *</label>
+                <input
+                  id="lk-session-title"
+                  className="lk-input"
+                  value={sessionTitle}
+                  onChange={(event) => setSessionTitle(event.target.value)}
+                  placeholder="e.g. Chapter 4 — The Gilded Cage"
+                  required
+                />
+              </div>
+              <div className="lk-field">
+                <label className="lk-label" htmlFor="lk-session-date">Played on</label>
+                <input
+                  id="lk-session-date"
+                  className="lk-input tabular"
+                  type="date"
+                  value={sessionDate}
+                  onChange={(event) => setSessionDate(event.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div className="lk-field">
+              <label className="lk-label" htmlFor="lk-session-notes">What happened?</label>
+              <textarea
+                id="lk-session-notes"
+                className="lk-textarea"
+                rows={3}
+                value={sessionNotes}
+                onChange={(event) => setSessionNotes(event.target.value)}
+                placeholder="Progress, choices, discoveries, or details to remember…"
+              />
+            </div>
+            <div className="lk-session-form-footer">
+              <div className="lk-field lk-session-spoiler-select">
+                <label className="lk-label" htmlFor="lk-session-spoilers">Spoiler level</label>
+                <SelectField
+                  id="lk-session-spoilers"
+                  ariaLabel="Session note spoiler level"
+                  value={sessionSpoilerLevel}
+                  options={[
+                    { value: 'none', label: 'No spoilers' },
+                    { value: 'minor', label: 'Minor spoilers' },
+                    { value: 'major', label: 'Major spoilers' },
+                  ]}
+                  onChange={(value) => setSessionSpoilerLevel(value as SessionSpoilerLevel)}
+                />
+              </div>
+              <div className="lk-session-form-actions">
+                {editingSessionId && (
+                  <button type="button" className="lk-btn lk-btn-ghost lk-btn-sm" onClick={resetSessionForm}>
+                    Cancel edit
+                  </button>
+                )}
+                <button type="submit" className="lk-btn lk-btn-primary lk-btn-sm" disabled={savingSession || !sessionTitle.trim()}>
+                  <Plus size={14} />
+                  {savingSession ? 'Saving…' : editingSessionId ? 'Save changes' : 'Add session note'}
+                </button>
+              </div>
+            </div>
+            {sessionError && <p className="lk-session-error" role="alert">{sessionError}</p>}
+          </form>
+
+          {linkedSessions.length > 0 ? (
+            <div className="lk-session-list">
+              {linkedSessions.map((session) => {
+                const hasSpoilers = session.spoilerLevel !== 'none';
+                const isRevealed = revealedSessionIds.has(session.id);
+                return (
+                  <article className="lk-session-item" key={session.id}>
+                    <div className="lk-session-item-head">
+                      <div>
+                        <h3>{hasSpoilers && !isRevealed ? 'Spoiler protected session' : session.title}</h3>
+                        <span className="lk-session-date tabular">
+                          {new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(session.playedAt)}
+                        </span>
+                      </div>
+                      <div className="lk-session-actions">
+                        {hasSpoilers && (
+                          <span className={`lk-session-spoiler-badge spoiler-${session.spoilerLevel}`}>
+                            {session.spoilerLevel === 'major' ? 'Major spoilers' : 'Minor spoilers'}
+                          </span>
+                        )}
+                        {confirmDeleteSessionId === session.id ? (
+                          <>
+                            <button type="button" className="lk-btn lk-btn-danger lk-btn-sm" onClick={() => {
+                              onDeleteGameSession(session.id);
+                              setConfirmDeleteSessionId(null);
+                              if (editingSessionId === session.id) resetSessionForm();
+                            }}>Delete</button>
+                            <button type="button" className="lk-btn lk-btn-ghost lk-btn-sm" onClick={() => setConfirmDeleteSessionId(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          <>
+                            <button type="button" className="lk-btn lk-btn-ghost lk-btn-sm" onClick={() => beginEditSession(session)}>Edit</button>
+                            <button type="button" className="lk-icon-btn" onClick={() => setConfirmDeleteSessionId(session.id)} aria-label={`Delete session note ${session.title}`} title="Delete session note"><Trash2 size={14} /></button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    {hasSpoilers && (
+                      <button
+                        type="button"
+                        className="lk-session-reveal"
+                        aria-expanded={isRevealed}
+                        onClick={() => setRevealedSessionIds((current) => {
+                          const next = new Set(current);
+                          if (next.has(session.id)) next.delete(session.id);
+                          else next.add(session.id);
+                          return next;
+                        })}
+                      >
+                        {isRevealed ? <EyeOff size={14} /> : <Eye size={14} />}
+                        {isRevealed ? 'Hide spoilers' : 'Reveal spoilers'}
+                      </button>
+                    )}
+                    {session.notes && (!hasSpoilers || isRevealed) && (
+                      <p className="lk-session-notes">{session.notes}</p>
+                    )}
+                    {!session.notes && <p className="lk-session-empty-notes">No session details were added.</p>}
+                  </article>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="lk-session-empty">Your session notes will appear here, newest first.</p>
+          )}
         </section>
 
         <section className="lk-panel" aria-label="Linked stories and notes">

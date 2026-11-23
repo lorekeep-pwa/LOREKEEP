@@ -7,12 +7,14 @@ import {
   createCollection,
   createDocument,
   createGame,
+  createGameSession,
   createRevisionSnapshot,
   db,
   deleteCollection,
   deleteDocument,
   deleteDocumentRevision,
   deleteGame,
+  deleteGameSession,
   duplicateDocument,
   ensureSettings,
   importWorkspaceBackup,
@@ -22,6 +24,7 @@ import {
   updateCollection,
   updateDocument,
   updateGame,
+  updateGameSession,
   updateSettings,
 } from './db/database';
 import { downloadWorkspaceBackupJson } from './utils/export';
@@ -81,6 +84,11 @@ export function App() {
     [],
     [],
   );
+  const gameSessions = useLiveQuery(
+    () => db.gameSessions.orderBy('playedAt').reverse().toArray(),
+    [],
+    [],
+  );
   const settings = useLiveQuery(
     () => db.settings.get('user-settings'),
     [],
@@ -88,6 +96,17 @@ export function App() {
   );
 
   const resolvedSettings: AppSettings = settings ?? DEFAULT_SETTINGS;
+  const backupReminderDue = useMemo(() => {
+    const interval = resolvedSettings.backupReminderInterval ?? 'monthly';
+    if (interval === 'never' || (documents.length === 0 && games.length === 0 && collections.length === 0)) {
+      return false;
+    }
+    if (resolvedSettings.lastBackupAt == null) return true;
+    const due = new Date(resolvedSettings.lastBackupAt);
+    if (interval === 'monthly') due.setMonth(due.getMonth() + 1);
+    else due.setDate(due.getDate() + 7);
+    return Date.now() >= due.getTime();
+  }, [resolvedSettings.backupReminderInterval, resolvedSettings.lastBackupAt, documents.length, games.length, collections.length]);
 
   useEffect(() => {
     void ensureSettings();
@@ -390,6 +409,8 @@ export function App() {
             documents={documents}
             games={games}
             collections={collections}
+            backupReminderDue={backupReminderDue}
+            onOpenBackupCenter={() => setIsSettingsOpen(true)}
             onCreateDocument={() => void handleCreateDocument()}
             onOpenDocument={handleOpenDocument}
             onRenameDocument={(id, title) => void handleRenameDocument(id, title)}
@@ -459,6 +480,7 @@ export function App() {
         {activeSection === 'games' && (
           <GamesView
             games={games}
+            sessions={gameSessions}
             documents={documents}
             collections={collections}
             selectedGameId={selectedGameId}
@@ -466,6 +488,15 @@ export function App() {
             onOpenNewGameModal={openNewGameModal}
             onEditGame={openEditGameModal}
             onDeleteGame={(id) => void handleDeleteGame(id)}
+            onCreateGameSession={async (session) => {
+              await createGameSession(session);
+              showToast('Session note saved');
+            }}
+            onUpdateGameSession={async (id, patch) => {
+              await updateGameSession(id, patch);
+              showToast('Session note updated');
+            }}
+            onDeleteGameSession={(id) => void deleteGameSession(id)}
             onCreateDocumentForGame={(gameId) => void handleCreateDocument({ gameId })}
             onOpenDocument={handleOpenDocument}
             onRenameDocument={(id, title) => void handleRenameDocument(id, title)}
@@ -577,10 +608,11 @@ export function App() {
         onExportBackup={async () => {
           const backup = await buildWorkspaceBackup();
           downloadWorkspaceBackupJson(backup);
+          await updateSettings({ lastBackupAt: Date.now() });
         }}
         onImportBackup={async (rawJson, mode) => {
           const stats = await importWorkspaceBackup(rawJson, mode);
-          return `Imported ${stats.documents} docs, ${stats.games} games, ${stats.collections} collections.`;
+          return `Imported ${stats.documents} docs, ${stats.games} games, ${stats.collections} collections, and ${stats.gameSessions} session notes.`;
         }}
         onClearAll={async () => {
           await clearAllWorkspaceData();

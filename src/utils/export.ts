@@ -3,6 +3,7 @@ import type {
   Collection,
   DocumentRevision,
   Game,
+  GameSession,
   LoreDocument,
 } from '../types/models';
 import { formatExactDateTime, getDocumentDisplayTitle } from './format';
@@ -22,7 +23,7 @@ export interface DocumentExportMeta {
 
 export interface WorkspaceBackupPayload {
   app: 'LOREKEEP';
-  schemaVersion: 1;
+  schemaVersion: 2;
   exportedAt: string;
   data: {
     games: Game[];
@@ -30,6 +31,7 @@ export interface WorkspaceBackupPayload {
     documents: LoreDocument[];
     revisions: DocumentRevision[];
     settings: AppSettings[];
+    gameSessions: GameSession[];
   };
 }
 
