@@ -52,7 +52,7 @@ LOREKEEP is a browser-based writing workspace built for people who keep stories,
 
 The application is a Progressive Web App (PWA). It can be opened as a regular website or installed from a compatible browser as a desktop application. Its core archive is local-first: documents, game records, collections, preferences, revisions, and saved cover images are kept in the browser's IndexedDB database on the current device.
 
-The hosted application does not require an account to write. Writers can optionally use email-code sign-in and end-to-end encrypted sync across devices. Notes are encrypted in the browser with a recovery phrase before they reach Neon; the local IndexedDB archive remains available offline. The optional cover lookup feature contacts IGDB and SteamGridDB through a small server-side proxy; selected covers stay in the local archive and are not synchronized.
+The hosted application does not require an account to write. Writers can optionally use email-code sign-in and end-to-end encrypted sync across devices. Notes are encrypted in the browser with a recovery code before they reach Neon; the local IndexedDB archive remains available offline. The optional cover lookup feature contacts IGDB and SteamGridDB through a small server-side proxy; selected covers stay in the local archive and are not synchronized.
 
 LOREKEEP is deliberately a writing tool rather than a game catalog. It does not try to keep a remote library in sync, import a user's game ownership, or decide how a story should be written. Game profiles, relationships, tags, and collections remain under the writer's control.
 
@@ -392,9 +392,9 @@ Storage is scoped to the browser's origin and profile. Clearing site data, using
 
 ### Local-first archive and optional sync
 
-LOREKEEP stores the working archive in IndexedDB and works without an account. Optional Account & sync uses Neon Auth email codes and sends encrypted copies of documents, games (without cover images), collections, revisions, and playthrough sessions to a dedicated Neon database. Encryption and decryption happen in the browser with a 256-bit AES-GCM key derived from a 24-word recovery phrase. The phrase is never sent to Neon; an encrypted key-check record lets a new device confirm the phrase even if the cloud archive has no notes yet. Neon can see account identifiers, record identifiers, record types, ciphertext sizes, and update timing, but not note contents. Local JSON backups are generated client-side and remain unencrypted, so keep exported backups private.
+LOREKEEP stores the working archive in IndexedDB and works without an account. Optional Account & sync uses Neon Auth email codes and sends encrypted copies of documents, games (without cover images), collections, revisions, and playthrough sessions to a dedicated Neon database. Encryption and decryption happen in the browser with a 256-bit AES-GCM key represented by a 64-character hexadecimal recovery code. The code is never sent to Neon; an encrypted key-check record lets a new device confirm it even if the cloud archive has no notes yet. Neon can see account identifiers, record identifiers, record types, ciphertext sizes, and update timing, but not note contents. Local JSON backups are generated client-side and remain unencrypted, so keep exported backups private.
 
-Save the recovery phrase somewhere safe before enabling sync. It cannot be reset: if it is lost, neither Neon nor LOREKEEP can decrypt the cloud copies. A device already unlocked keeps its local copy. Covers and app settings are not synchronized. Removing a cloud-synced record sends an encrypted deletion marker so the deletion can reach other devices. Cloud sync is optional and does not replace a separate backup.
+Save the recovery code somewhere safe before enabling sync. It cannot be reset: if it is lost, neither Neon nor LOREKEEP can decrypt the cloud copies. A device already unlocked keeps its local copy. Covers and app settings are not synchronized. Removing a cloud-synced record sends an encrypted deletion marker so the deletion can reach other devices. Cloud sync is optional and does not replace a separate backup. Existing accounts created with the earlier 24-word format can continue using their original phrase.
 
 ### What leaves the browser for cover lookup
 
@@ -661,7 +661,7 @@ Plain text paste normalizes soft-wrapped lines and blank-line paragraph breaks. 
 
 ### Local edits are not visible on another computer
 
-Cloud sync is optional. Open Settings → Account & sync, sign in with an email code, save the recovery phrase, and enable sync. On another device, sign in with the same email and unlock the archive with that phrase. Without sync, export a JSON backup from one device and import it on the other.
+Cloud sync is optional. Open Settings → Account & sync, sign in with an email code, save the recovery code, and enable sync. On another device, sign in with the same email and unlock the archive with that code. Existing accounts may use their original 24-word phrase. Without sync, export a JSON backup from one device and import it on the other.
 
 ### A PWA installation still displays an older version
 
@@ -674,7 +674,7 @@ Check whether it was archived, whether a search/filter is active, or whether the
 ## Known limitations
 
 - Cloud sync must be configured in the build and is optional; local writing and backups work without an account.
-- A lost end-to-end encryption recovery phrase cannot be recovered by Neon. Keep a separate copy of important backups outside the browser profile.
+- A lost end-to-end encryption recovery code cannot be recovered by Neon. Keep a separate copy of important backups outside the browser profile.
 - Cloud sync currently excludes cover images and app settings.
 - The cover proxy is online-only; status checks and provider searches need network access.
 - The built-in cover title matcher is heuristic. Users should inspect the title, year, and edition before choosing artwork.

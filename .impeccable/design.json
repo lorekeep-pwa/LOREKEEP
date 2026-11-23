@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-23T17:25:20.204Z",
+  "generatedAt": "2026-11-23T17:40:57.127Z",
   "title": "Design System: LOREKEEP",
   "extensions": {
     "colorMeta": {
@@ -573,6 +573,13 @@
       "description": "Optional email-code sign-in and encrypted cross-device sync, presented as a compact settings section that keeps the local-first archive in view.",
       "html": "<section class=\"ds-account\"><div class=\"ds-account-head\"><span class=\"ds-account-mark\">◇</span><div class=\"ds-account-title\"><strong>Account &amp; sync</strong><small>Notes are encrypted before leaving this browser.</small></div><span class=\"ds-account-status\">Optional</span></div><label for=\"ds-email\">Email address</label><div class=\"ds-account-form\"><input id=\"ds-email\" type=\"email\" placeholder=\"you@example.com\"><button type=\"button\">Send sign-in code</button></div><small class=\"ds-account-note\">A one-time code creates your account or signs you in.</small></section>",
       "css": ".ds-account { display:grid; gap:12px; padding:4px 0 16px; border-bottom:1px solid var(--border-subtle,rgba(255,255,255,.07)); color:var(--ink-primary,#f2f3f5); font-family:var(--font-ui,Figtree,sans-serif); } .ds-account-head { display:flex; align-items:flex-start; gap:10px; } .ds-account-mark { width:34px; height:34px; display:grid; place-items:center; flex:none; border:1px solid var(--border-subtle,rgba(255,255,255,.07)); border-radius:9px; background:var(--bg-elevated,#222530); color:var(--ink-secondary,#c4c9d1); } .ds-account-title { flex:1; display:grid; gap:3px; } .ds-account-title strong { font-size:14px; font-weight:650; } .ds-account-title small,.ds-account-note { color:var(--ink-muted,#949ba4); font-size:12px; line-height:1.45; } .ds-account-status { padding:4px 8px; border:1px solid var(--border-subtle,rgba(255,255,255,.07)); border-radius:999px; background:var(--bg-recessed,#101116); color:var(--ink-muted,#949ba4); font-size:11px; } .ds-account label { color:var(--ink-secondary,#c4c9d1); font-size:12px; font-weight:600; } .ds-account-form { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; } .ds-account-form input { min-width:0; height:38px; padding:0 11px; border:1px solid var(--border-default,rgba(255,255,255,.12)); border-radius:8px; outline:none; background:var(--bg-recessed,#101116); color:var(--ink-primary,#f2f3f5); font:inherit; } .ds-account-form input:focus-visible { border-color:var(--accent,#5b6ef5); box-shadow:0 0 0 2px rgba(91,110,245,.2); } .ds-account-form button { min-height:38px; padding:0 12px; border:0; border-radius:8px; background:var(--accent-fill,#4b5ee8); color:var(--accent-ink,#fff); font:600 12px var(--font-ui,Figtree,sans-serif); cursor:pointer; } .ds-account-note { margin:0; }"
+    },
+    {
+      "name": "Recovery Code Display",
+      "kind": "custom",
+      "description": "One copyable 64-character hexadecimal key, presented as a quiet code well with explicit save acknowledgement.",
+      "html": "<section class=\"ds-recovery\"><strong>Save this code before continuing.</strong><code>4f8a3d6c92b17e05c4f6a9d1382b7e60e1a4c8d2f7b3096e5a1c4d8b2f70396a</code><button type=\"button\">Copy recovery code</button><label><input type=\"checkbox\"> I have saved this code somewhere safe.</label></section>",
+      "css": ".ds-recovery { display:grid; gap:10px; color:var(--ink-primary,#f2f3f5); font-family:var(--font-ui,Figtree,sans-serif); } .ds-recovery strong { font-size:12px; font-weight:600; } .ds-recovery code { display:block; max-width:100%; padding:12px 14px; overflow-wrap:anywhere; user-select:all; border:1px solid var(--border-default,rgba(255,255,255,.12)); border-radius:8px; background:var(--bg-recessed,#101116); color:var(--ink-primary,#f2f3f5); font:500 12px/1.7 var(--font-mono,'JetBrains Mono',monospace); letter-spacing:.025em; } .ds-recovery button { justify-self:start; min-height:32px; padding:0 11px; border:1px solid var(--border-default,rgba(255,255,255,.12)); border-radius:8px; background:var(--bg-interactive,#272b37); color:var(--ink-primary,#f2f3f5); font:600 12px var(--font-ui,Figtree,sans-serif); } .ds-recovery label { display:flex; align-items:flex-start; gap:8px; color:var(--ink-secondary,#c4c9d1); font-size:12px; line-height:1.4; }"
     }
   ],
   "narrative": {

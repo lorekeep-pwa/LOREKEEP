@@ -53,7 +53,7 @@ Unlike generic note-taking apps built around permanent multi-pane sidebars, subs
 ### Hard Non-Negotiable Constraints
 - Strictly no AI features.
 - No advertisements, subscriptions, telemetry, or mandatory accounts/registration. Optional email-code sign-in enables encrypted cross-device sync.
-- Sync payloads are encrypted in the browser with a user-held recovery phrase; Neon stores ciphertext and account/authentication metadata only.
+- Sync payloads are encrypted in the browser with a user-held alphanumeric recovery code; Neon stores ciphertext and account/authentication metadata only.
 - No external game database API dependencies.
 - Real working functionality over aesthetic-only demos.
 

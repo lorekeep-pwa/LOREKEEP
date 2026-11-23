@@ -1,4 +1,4 @@
-import { entropyToMnemonic, mnemonicToEntropy, validateMnemonic } from '@scure/bip39';
+import { mnemonicToEntropy, validateMnemonic } from '@scure/bip39';
 import { wordlist } from '@scure/bip39/wordlists/english.js';
 
 function bytesToBase64Url(bytes: Uint8Array): string {
@@ -23,25 +23,36 @@ function toArrayBuffer(bytes: Uint8Array): ArrayBuffer {
 }
 
 export interface NewRecoveryKey {
-  phrase: string;
+  code: string;
   key: CryptoKey;
 }
 
 export async function createRecoveryKey(): Promise<NewRecoveryKey> {
   const entropy = crypto.getRandomValues(new Uint8Array(32));
-  const phrase = entropyToMnemonic(entropy, wordlist);
-  const key = await crypto.subtle.importKey('raw', entropy, 'AES-GCM', false, ['encrypt', 'decrypt']);
+  const code = Array.from(entropy, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const key = await crypto.subtle.importKey('raw', toArrayBuffer(entropy), 'AES-GCM', false, ['encrypt', 'decrypt']);
   entropy.fill(0);
-  return { phrase, key };
+  return { code, key };
 }
 
-export async function importRecoveryKey(phraseInput: string): Promise<CryptoKey> {
-  const phrase = phraseInput.trim().toLowerCase().replace(/\s+/gu, ' ');
-  if (!validateMnemonic(phrase, wordlist)) {
-    throw new Error('The recovery phrase is not valid. Check the 24 English words and try again.');
+export async function importRecoveryKey(codeInput: string): Promise<CryptoKey> {
+  const input = codeInput.trim();
+  const compactCode = input.replace(/\s+/gu, '').toLowerCase();
+  let entropy: Uint8Array;
+
+  if (/^[0-9a-f]{64}$/u.test(compactCode)) {
+    entropy = Uint8Array.from({ length: 32 }, (_, index) =>
+      Number.parseInt(compactCode.slice(index * 2, index * 2 + 2), 16),
+    );
+  } else {
+    // Keep already-issued 24-word keys valid so existing archives remain unlockable.
+    const legacyPhrase = input.toLowerCase().replace(/\s+/gu, ' ');
+    if (!validateMnemonic(legacyPhrase, wordlist)) {
+      throw new Error('Enter the 64-character recovery code. Existing 24-word recovery phrases also work.');
+    }
+    entropy = mnemonicToEntropy(legacyPhrase, wordlist);
   }
-  const entropy = mnemonicToEntropy(phrase, wordlist);
-  const key = await crypto.subtle.importKey('raw', entropy, 'AES-GCM', false, ['encrypt', 'decrypt']);
+  const key = await crypto.subtle.importKey('raw', toArrayBuffer(entropy), 'AES-GCM', false, ['encrypt', 'decrypt']);
   entropy.fill(0);
   return key;
 }

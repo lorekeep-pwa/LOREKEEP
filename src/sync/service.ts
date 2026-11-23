@@ -218,7 +218,7 @@ export async function registerRecoveryKey(apiUrl: string, token: string, key: Cr
   });
   if (!response.ok) throw new Error('Could not initialize the encrypted archive key check.');
   if (!await verifyRecoveryKey(apiUrl, token, key)) {
-    throw new Error('This account already has a different recovery phrase. Sign in on this device with the original phrase.');
+    throw new Error('This account already has a different recovery key. Sign in on this device with its original recovery code.');
   }
 }
 

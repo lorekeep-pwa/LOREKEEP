@@ -10,7 +10,7 @@ related_targets: ["index.html","src/styles/tokens.css","src/styles/global.css"]
 - **Scope:** Full desktop PWA application shell (`src/App.tsx`), Hybrid Floating Workspace navigation (compact top bar, bottom Floating Dock, `Ctrl + K` Command Palette), Hub Workspace, Games Library & Game Detail, Collections & Tags, Archive, Settings, and TipTap Immersive Editor with Focus Mode.
 - **Mode:** `operate` (code-led).
 - **Audience & Task:** PC/console gamer & writer drafting stories, tales, and lore notes daily in a calm Local-First dark desktop workspace starting from a clean empty archive.
-- **Constraints:** English UI; zero AI, ads, accounts, or external APIs; no permanent traditional sidebar; zero popups or forced autocorrections inside the editor; IndexedDB persistence via Dexie.js.
+- **Constraints:** English UI; zero AI or ads; optional account sync is end-to-end encrypted and never required for local writing; no unrelated external APIs; no permanent traditional sidebar; zero popups or forced autocorrections inside the editor; IndexedDB persistence via Dexie.js.
 
 ## Direction contract
 

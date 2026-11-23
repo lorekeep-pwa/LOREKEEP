@@ -40,13 +40,13 @@ interface AccountSyncContextValue {
   syncStatus: SyncStatus;
   lastSyncAt: number | null;
   error: string | null;
-  recoveryPhrase: string | null;
+  recoveryCode: string | null;
   localCounts: { documents: number; games: number; collections: number };
   sendCode: (email: string) => Promise<void>;
   verifyCode: (email: string, code: string) => Promise<void>;
-  createRecoveryPhrase: () => Promise<void>;
-  confirmRecoverySaved: () => Promise<void>;
-  unlockWithPhrase: (phrase: string) => Promise<void>;
+  createRecoveryCode: () => Promise<void>;
+  confirmRecoveryCodeSaved: () => Promise<void>;
+  unlockWithCode: (code: string) => Promise<void>;
   signOut: () => Promise<void>;
   syncNow: () => Promise<void>;
   dismissError: () => void;
@@ -75,7 +75,7 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle');
   const [lastSyncAt, setLastSyncAt] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [recoveryPhrase, setRecoveryPhrase] = useState<string | null>(null);
+  const [recoveryCode, setRecoveryCode] = useState<string | null>(null);
   const [recoveryKey, setRecoveryKey] = useState<CryptoKey | null>(null);
   const [localCounts, setLocalCounts] = useState({ documents: 0, games: 0, collections: 0 });
   const busyRef = useRef(false);
@@ -119,7 +119,7 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
     setLocalCounts(counts);
     if (savedKey) {
       setRecoveryKey(savedKey.key);
-      setRecoveryPhrase(null);
+      setRecoveryCode(null);
       setStep('ready');
       return;
     }
@@ -192,36 +192,36 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
     });
   }, [continueAfterSignIn]);
 
-  const createRecoveryPhrase = useCallback(async () => {
+  const createRecoveryCode = useCallback(async () => {
     setError(null);
     try {
       const { createRecoveryKey } = await import('./crypto');
       const generated = await createRecoveryKey();
       setRecoveryKey(generated.key);
-      setRecoveryPhrase(generated.phrase);
+      setRecoveryCode(generated.code);
       setStep('recoveryCreated');
     } catch (createError) {
       setError(errorMessage(createError));
     }
   }, []);
 
-  const confirmRecoverySaved = useCallback(async () => {
-    if (!user || !recoveryKey || !recoveryPhrase || !syncUrl) return;
+  const confirmRecoveryCodeSaved = useCallback(async () => {
+    if (!user || !recoveryKey || !recoveryCode || !syncUrl) return;
     setError(null);
     try {
       const token = await getToken();
       const { registerRecoveryKey } = await import('./service');
       await registerRecoveryKey(syncUrl, token, recoveryKey);
       await db.syncKeys.put({ id: user.id, key: recoveryKey, createdAt: Date.now() });
-      setRecoveryPhrase(null);
+      setRecoveryCode(null);
       setStep('ready');
       window.setTimeout(() => void syncNow(), 0);
     } catch (saveError) {
       setError(errorMessage(saveError));
     }
-  }, [user, recoveryKey, recoveryPhrase, syncNow]);
+  }, [user, recoveryKey, recoveryCode, syncNow]);
 
-  const unlockWithPhrase = useCallback(async (phrase: string) => {
+  const unlockWithCode = useCallback(async (code: string) => {
     if (!user || !syncUrl) return;
     setError(null);
     try {
@@ -229,10 +229,10 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
         import('./crypto'),
         import('./service'),
       ]);
-      const key = await importRecoveryKey(phrase);
+      const key = await importRecoveryKey(code);
       const token = await getToken();
       if (!await verifyRecoveryKey(syncUrl, token, key)) {
-        throw new Error('That recovery phrase does not unlock this LOREKEEP archive. Check the words and try again.');
+        throw new Error('That recovery code does not unlock this LOREKEEP archive. Check it and try again.');
       }
       await db.syncKeys.put({ id: user.id, key, createdAt: Date.now() });
       setRecoveryKey(key);
@@ -246,7 +246,7 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
     if (authUrl) await (await getAuthClient()).signOut();
     setUser(null);
     setRecoveryKey(null);
-    setRecoveryPhrase(null);
+    setRecoveryCode(null);
     setError(null);
     setSyncStatus('idle');
     setStep('signedOut');
@@ -261,17 +261,17 @@ export function AccountSyncProvider({ children }: { children: ReactNode }) {
     syncStatus,
     lastSyncAt,
     error,
-    recoveryPhrase,
+    recoveryCode,
     localCounts,
     sendCode,
     verifyCode,
-    createRecoveryPhrase,
-    confirmRecoverySaved,
-    unlockWithPhrase,
+    createRecoveryCode,
+    confirmRecoveryCodeSaved,
+    unlockWithCode,
     signOut,
     syncNow,
     dismissError,
-  }), [user, step, syncStatus, lastSyncAt, error, recoveryPhrase, localCounts, sendCode, verifyCode, createRecoveryPhrase, confirmRecoverySaved, unlockWithPhrase, signOut, syncNow, dismissError]);
+  }), [user, step, syncStatus, lastSyncAt, error, recoveryCode, localCounts, sendCode, verifyCode, createRecoveryCode, confirmRecoveryCodeSaved, unlockWithCode, signOut, syncNow, dismissError]);
 
   return <AccountSyncContext.Provider value={value}>{children}</AccountSyncContext.Provider>;
 }

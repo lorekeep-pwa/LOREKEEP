@@ -6,8 +6,8 @@ export function AccountSyncPanel() {
   const account = useAccountSync();
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
-  const [phraseInput, setPhraseInput] = useState('');
-  const [savedPhrase, setSavedPhrase] = useState(false);
+  const [codeInput, setCodeInput] = useState('');
+  const [savedCode, setSavedCode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
@@ -25,14 +25,14 @@ export function AccountSyncPanel() {
     }
   };
 
-  const copyPhrase = async () => {
-    if (!account.recoveryPhrase) return;
+  const copyRecoveryCode = async () => {
+    if (!account.recoveryCode) return;
     try {
-      await navigator.clipboard.writeText(account.recoveryPhrase);
+      await navigator.clipboard.writeText(account.recoveryCode);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
-      setLocalError('Clipboard access is unavailable. Select and copy the phrase manually.');
+      setLocalError('Clipboard access is unavailable. Select and copy the code manually.');
     }
   };
 
@@ -132,37 +132,33 @@ export function AccountSyncPanel() {
           <p className="lk-account-sync-copy">
             {account.localCounts.documents || account.localCounts.games || account.localCounts.collections
               ? `This device has ${account.localCounts.documents} notes, ${account.localCounts.games} games, and ${account.localCounts.collections} collections. They will be merged into your new encrypted archive; the local copy stays here.`
-              : 'Create a private recovery phrase before enabling encrypted sync.'}
+              : 'Create a private recovery code before enabling encrypted sync.'}
           </p>
-          <button type="button" className="lk-btn-primary" onClick={() => void account.createRecoveryPhrase()} disabled={busy}>
-            Create recovery phrase
+          <button type="button" className="lk-btn-primary" onClick={() => void account.createRecoveryCode()} disabled={busy}>
+            Create recovery code
           </button>
         </div>
       )}
 
-      {account.configured && account.step === 'recoveryCreated' && account.recoveryPhrase && (
+      {account.configured && account.step === 'recoveryCreated' && account.recoveryCode && (
         <div className="lk-account-key-step">
           <div className="lk-account-key-warning">
-            <strong>Save this phrase before continuing.</strong>
+            <strong>Save this code before continuing.</strong>
             <span>It is never sent to Neon. You will need it to unlock this archive on another device; it cannot be reset.</span>
           </div>
-          <div className="lk-account-recovery-phrase" aria-label="24-word recovery phrase">
-            {account.recoveryPhrase.split(' ').map((word, index) => (
-              <span key={`${word}-${index}`}><i>{index + 1}</i>{word}</span>
-            ))}
-          </div>
-          <button type="button" className="lk-btn-secondary lk-account-copy" onClick={() => void copyPhrase()}>
+          <code className="lk-account-recovery-code" aria-label="64-character alphanumeric recovery code">{account.recoveryCode}</code>
+          <button type="button" className="lk-btn-secondary lk-account-copy" onClick={() => void copyRecoveryCode()}>
             {copied ? <Check size={15} /> : <Clipboard size={15} />}
-            {copied ? 'Copied' : 'Copy phrase'}
+            {copied ? 'Copied' : 'Copy recovery code'}
           </button>
           <label className="lk-account-acknowledge">
-            <input type="checkbox" checked={savedPhrase} onChange={(event) => setSavedPhrase(event.target.checked)} />
-            <span>I have saved this phrase somewhere safe.</span>
+            <input type="checkbox" checked={savedCode} onChange={(event) => setSavedCode(event.target.checked)} />
+            <span>I have saved this code somewhere safe.</span>
           </label>
-          <button type="button" className="lk-btn-primary" disabled={!savedPhrase || busy} onClick={() => void run(account.confirmRecoverySaved)}>
+          <button type="button" className="lk-btn-primary" disabled={!savedCode || busy} onClick={() => void run(account.confirmRecoveryCodeSaved)}>
             {account.localCounts.documents || account.localCounts.games || account.localCounts.collections
-              ? 'Save phrase and sync this archive'
-              : 'Save phrase and enable sync'}
+              ? 'Save code and sync this archive'
+              : 'Save code and enable sync'}
           </button>
         </div>
       )}
@@ -170,21 +166,22 @@ export function AccountSyncPanel() {
       {account.configured && account.step === 'unlockRecovery' && (
         <form className="lk-account-key-step" onSubmit={(event) => {
           event.preventDefault();
-          void run(() => account.unlockWithPhrase(phraseInput));
+          void run(() => account.unlockWithCode(codeInput));
         }}>
-          <p className="lk-account-sync-copy">This account already has an encrypted archive. Enter its 24-word recovery phrase to unlock it on this device.</p>
-          <label className="lk-label" htmlFor="lk-recovery-phrase">Recovery phrase</label>
+          <p className="lk-account-sync-copy">This account already has an encrypted archive. Enter its recovery code to unlock it on this device.</p>
+          <label className="lk-label" htmlFor="lk-recovery-code">Recovery code</label>
           <textarea
-            id="lk-recovery-phrase"
+            id="lk-recovery-code"
             className="lk-textarea lk-account-recovery-input"
             autoComplete="off"
             spellCheck={false}
-            value={phraseInput}
-            onChange={(event) => setPhraseInput(event.target.value)}
-            placeholder="Enter the 24 words, separated by spaces"
+            value={codeInput}
+            onChange={(event) => setCodeInput(event.target.value.replace(/[^a-z0-9\s]/giu, '').slice(0, 256))}
+            placeholder="Paste the 64-character code"
             required
           />
-          <button type="submit" className="lk-btn-primary" disabled={busy || phraseInput.trim().split(/\s+/u).length !== 24}>
+          <p className="lk-account-sync-copy">Previously created 24-word recovery phrases are still accepted.</p>
+          <button type="submit" className="lk-btn-primary" disabled={busy || !(/^[a-f0-9]{64}$/iu.test(codeInput.trim().replace(/\s+/gu, '')) || codeInput.trim().split(/\s+/u).length === 24)}>
             {busy ? 'Unlocking…' : 'Unlock and sync'}
           </button>
         </form>
