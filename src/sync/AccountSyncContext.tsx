@@ -22,8 +22,12 @@ let authClientPromise: Promise<OtpAuthClient> | null = null;
 function getAuthClient(): Promise<OtpAuthClient> {
   if (!authUrl) return Promise.reject(new Error('Neon Auth is not configured for this build.'));
   if (!authClientPromise) {
-    authClientPromise = import('@neon/auth').then(({ createAuthClient }) =>
-      createAuthClient(authUrl) as unknown as OtpAuthClient,
+    authClientPromise = import('@neon/auth').then(({ createAuthClient }) => {
+      // Keep Neon Auth on the app origin so browsers can persist its session
+      // cookies even when third-party cookies are disabled.
+      const sameOriginAuthUrl = `${window.location.origin}/api/neon-auth`;
+      return createAuthClient(sameOriginAuthUrl) as unknown as OtpAuthClient;
+    }
     );
   }
   return authClientPromise;

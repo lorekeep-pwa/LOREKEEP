@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { createCoverApiMiddleware } from './server/cover-api-handler.mjs';
@@ -30,7 +30,22 @@ function lorekeepCoverProxyPlugin(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, '.', '');
+  const authUrl = env.VITE_NEON_AUTH_URL?.trim();
+  const authMatch = authUrl?.match(/^(https?:\/\/[^/]+)(\/.*)?$/u);
+  const authBasePath = authMatch?.[2]?.replace(/\/$/u, '') ?? '';
+  const authProxy = authMatch ? {
+    '/api/neon-auth': {
+      target: authMatch[1],
+      changeOrigin: true,
+      secure: true,
+      cookieDomainRewrite: '',
+      rewrite: (path: string) => `${authBasePath}${path.slice('/api/neon-auth'.length)}`,
+    },
+  } : undefined;
+
+  return {
   plugins: [
     react(),
     lorekeepCoverProxyPlugin(),
@@ -68,5 +83,10 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: true,
+    proxy: authProxy,
   },
+  preview: {
+    proxy: authProxy,
+  },
+  };
 });

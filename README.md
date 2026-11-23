@@ -52,7 +52,7 @@ LOREKEEP is a browser-based writing workspace built for people who keep stories,
 
 The application is a Progressive Web App (PWA). It can be opened as a regular website or installed from a compatible browser as a desktop application. Its core archive is local-first: documents, game records, collections, preferences, revisions, and saved cover images are kept in the browser's IndexedDB database on the current device.
 
-The hosted application does not require an account to write. Writers can optionally use email-code sign-in and end-to-end encrypted sync across devices. Notes are encrypted in the browser with a recovery code before they reach Neon; the local IndexedDB archive remains available offline. The optional cover lookup feature contacts IGDB and SteamGridDB through a small server-side proxy; selected covers stay in the local archive and are not synchronized.
+The hosted application does not require an account to write. Writers can optionally use email-code sign-in and end-to-end encrypted sync across devices. A same-origin auth proxy keeps the browser session across visits, so an OTP is not required every time the site opens. Notes are encrypted in the browser with a recovery code before they reach Neon; the local IndexedDB archive remains available offline. The optional cover lookup feature contacts IGDB and SteamGridDB through a small server-side proxy; selected covers stay in the local archive and are not synchronized.
 
 LOREKEEP is deliberately a writing tool rather than a game catalog. It does not try to keep a remote library in sync, import a user's game ownership, or decide how a story should be written. Game profiles, relationships, tags, and collections remain under the writer's control.
 

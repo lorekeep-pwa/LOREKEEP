@@ -58,11 +58,11 @@ npx wrangler secret put STEAMGRIDDB_API_KEY --config worker/wrangler.toml
 4. In **Environment variables (Production & Preview)** aggiungi queste variabili pubbliche (non sono chiavi segrete):
    - **Nome**: `VITE_COVER_API_BASE`
    - **Valore**: `https://lorekeep-covers-api.<tuo-subdomain>.workers.dev` *(senza `/` finale)*
-   - **Nome**: `VITE_NEON_AUTH_URL` — URL pubblico Neon Auth che termina con `/lorekeep/auth`
+   - **Nome**: `VITE_NEON_AUTH_URL` — URL pubblico Neon Auth che termina con `/lorekeep/auth`. La Function Pages lo usa come upstream; il client passa dal proxy same-origin `/api/neon-auth` per conservare i cookie di sessione nel browser.
    - **Nome**: `VITE_NEON_SYNC_URL` — URL pubblico della Neon Function `sync`
 5. Avvia il deploy (**Save and Deploy**). Ogni futuro `git push` aggiornerà automaticamente la PWA.
 
-Le due variabili Neon sono configurazione pubblica. Non aggiungere `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, password database o API key Neon alle variabili Pages. Il branch di produzione Neon deve avere Neon Auth, Function `sync` e migrazioni applicati; configura `https://lorekeep.pages.dev` come dominio Auth attendibile.
+Le due variabili Neon sono configurazione pubblica. Non aggiungere `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, password database o API key Neon alle variabili Pages. Il branch di produzione Neon deve avere Neon Auth, Function `sync` e migrazioni applicati; configura `https://lorekeep.pages.dev` come dominio Auth attendibile. Il proxy same-origin mantiene la sessione Auth tra le visite senza inviare un nuovo OTP a ogni apertura del sito.
 
 ---
 
