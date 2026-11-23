@@ -74,6 +74,7 @@ export const GAME_PLATFORMS = [
   'PlayStation 5',
   'Xbox Series X|S',
   'Nintendo Switch',
+  'Nintendo Switch 2',
   'Steam Deck',
   'Multiplatform',
   'Other Console',

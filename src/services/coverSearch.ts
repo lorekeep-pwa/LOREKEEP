@@ -138,7 +138,8 @@ export function mapExternalPlatform(platforms: string[]): string | null {
   else if (joined.includes('playstation')) hits.push('Other Console');
   if (joined.includes('xbox series')) hits.push('Xbox Series X|S');
   else if (joined.includes('xbox')) hits.push('Other Console');
-  if (joined.includes('switch')) hits.push('Nintendo Switch');
+  if (joined.includes('switch 2')) hits.push('Nintendo Switch 2');
+  else if (joined.includes('switch')) hits.push('Nintendo Switch');
   else if (joined.includes('nintendo')) hits.push('Other Console');
 
   if (hits.length > 1) return 'Multiplatform';
