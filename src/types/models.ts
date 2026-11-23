@@ -64,9 +64,11 @@ export interface DocumentRevision {
 export type EditorFont = 'sans' | 'serif';
 export type EditorWidth = 'narrow' | 'comfortable' | 'wide';
 export type BackupReminderInterval = 'monthly' | 'weekly' | 'never';
+export type AppTheme = 'slate' | 'paper';
 
 export interface AppSettings {
   id: 'user-settings';
+  theme: AppTheme;
   showWordCount: boolean;
   editorFont: EditorFont;
   editorWidth: EditorWidth;
@@ -78,6 +80,7 @@ export interface AppSettings {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   id: 'user-settings',
+  theme: 'slate',
   showWordCount: true,
   editorFont: 'sans',
   editorWidth: 'comfortable',

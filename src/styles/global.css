@@ -29,13 +29,13 @@ body {
   background-color: var(--bg-canvas);
   color: var(--ink-primary);
   overflow-x: hidden;
-  caret-color: #7c8cff;
+  caret-color: var(--accent);
 }
 
 /* Themed browser surfaces */
 ::selection {
-  background-color: rgba(91, 110, 245, 0.34);
-  color: #ffffff;
+  background-color: var(--selection-bg);
+  color: var(--selection-ink);
 }
 
 :focus-visible {
@@ -70,7 +70,7 @@ button:disabled {
 @supports not selector(::-webkit-scrollbar) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
   }
 }
 
@@ -90,14 +90,14 @@ button:disabled {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--scrollbar-thumb);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(255, 255, 255, 0.26);
+  background-color: var(--scrollbar-thumb-hover);
 }
 
 .tabular {
@@ -123,7 +123,7 @@ button:disabled {
   grid-template-columns: minmax(0, 1fr) minmax(260px, 400px) auto;
   align-items: center;
   gap: 18px;
-  background: rgba(24, 26, 33, 0.88);
+  background: color-mix(in srgb, var(--bg-topbar) 88%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-subtle);
   transition: opacity var(--t-base) var(--ease-out),
@@ -219,7 +219,7 @@ button:disabled {
 
 .lk-search-trigger:hover {
   border-color: var(--border-strong);
-  background: #13151c;
+  background: var(--bg-elevated);
   color: var(--ink-secondary);
 }
 
@@ -256,7 +256,7 @@ button:disabled {
   color: var(--ink-secondary);
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
-  border-bottom-color: rgba(255, 255, 255, 0.16);
+  border-bottom-color: var(--kbd-edge);
   border-radius: 5px;
   padding: 4px 6px;
   white-space: nowrap;
@@ -324,13 +324,13 @@ button:disabled {
 
 .lk-btn-danger {
   background: var(--state-danger-soft);
-  border-color: rgba(226, 87, 87, 0.35);
-  color: #f38b8b;
+  border-color: var(--state-danger-border);
+  color: var(--ink-danger);
 }
 
 .lk-btn-danger:hover:not(:disabled) {
-  background: rgba(226, 87, 87, 0.24);
-  color: #ffffff;
+  background: var(--state-danger-hover);
+  color: var(--ink-danger-hover);
 }
 
 .lk-btn-sm {
@@ -364,7 +364,7 @@ button:disabled {
 .lk-icon-btn.is-active {
   background: var(--accent-soft);
   border-color: var(--accent-border);
-  color: #b7c2ff;
+  color: var(--ink-accent-soft);
 }
 
 .lk-icon-btn.is-bordered {
@@ -642,8 +642,8 @@ button:disabled {
   gap: 4px;
   padding: 2px 8px;
   border-radius: var(--radius-xs);
-  background: rgba(91, 110, 245, 0.12);
-  color: #aebaff;
+  background: var(--tag-bg);
+  color: var(--ink-accent-soft);
   font-size: 0.74rem;
   font-weight: 500;
 }
@@ -798,7 +798,7 @@ button:disabled {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink-primary);
 }
 
 .lk-game-cover-platform {
@@ -806,8 +806,8 @@ button:disabled {
   align-self: flex-start;
   padding: 3px 8px;
   border-radius: var(--radius-xs);
-  background: rgba(16, 17, 22, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: color-mix(in srgb, var(--bg-recessed) 88%, transparent);
+  border: 1px solid var(--border-strong);
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--ink-primary);
@@ -905,7 +905,7 @@ button:disabled {
 
 .lk-session-error {
   margin: -4px 0 0;
-  color: var(--danger, #f38b8b);
+  color: var(--ink-danger);
   font-size: 0.8rem;
   line-height: 1.45;
 }
@@ -975,8 +975,8 @@ button:disabled {
 }
 
 .lk-session-spoiler-badge.spoiler-major {
-  border-color: rgba(226, 87, 87, 0.3);
-  color: #f0a0a0;
+  border-color: var(--state-danger-border);
+  color: var(--ink-danger);
 }
 
 .lk-session-reveal {
@@ -1126,7 +1126,7 @@ button:disabled {
 .lk-filter-pill.is-active {
   background: var(--accent-soft);
   border-color: var(--accent-border);
-  color: #cdd6ff;
+  color: var(--ink-accent-soft);
 }
 
 /* Inputs & Form Controls */
@@ -1321,7 +1321,7 @@ button:disabled {
   gap: 4px;
   padding: 6px;
   border-radius: 16px;
-  background: rgba(28, 30, 38, 0.92);
+  background: color-mix(in srgb, var(--bg-surface) 92%, transparent);
   backdrop-filter: blur(18px);
   border: 1px solid var(--border-default);
   box-shadow: var(--shadow-dock);
@@ -1421,7 +1421,7 @@ button:disabled {
   position: sticky;
   top: var(--topbar-height);
   z-index: 30;
-  background: rgba(20, 21, 26, 0.9);
+  background: color-mix(in srgb, var(--bg-canvas) 90%, transparent);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-subtle);
   transition: opacity var(--t-base) var(--ease-out);
@@ -1508,7 +1508,7 @@ button:disabled {
 .lk-tool-btn.is-active {
   background: var(--accent-soft);
   border-color: var(--accent-border);
-  color: #cdd6ff;
+  color: var(--ink-accent-soft);
 }
 
 .lk-editor-status {
@@ -1893,7 +1893,7 @@ button:disabled {
 .lk-prose {
   font-size: 1.0625rem;
   line-height: 1.78;
-  color: #e6e8ec;
+  color: var(--ink-prose);
   min-height: 54vh;
 }
 
@@ -1969,7 +1969,7 @@ button:disabled {
   border-radius: 5px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
-  color: #cdd6ff;
+  color: var(--ink-accent-soft);
 }
 
 .lk-prose .ProseMirror pre {
@@ -2008,7 +2008,7 @@ button:disabled {
   gap: 10px;
   padding: 6px 10px 6px 14px;
   border-radius: var(--radius-pill);
-  background: rgba(28, 30, 38, 0.86);
+  background: color-mix(in srgb, var(--bg-surface) 86%, transparent);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-default);
   box-shadow: var(--shadow-md);
@@ -2213,6 +2213,188 @@ button:disabled {
   box-shadow: 0 0 0 2px var(--bg-surface);
 }
 
+/* Appearance and Settings Controls */
+.lk-theme-setting {
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 14px;
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.lk-theme-setting legend {
+  padding: 0;
+}
+
+.lk-theme-setting > .lk-setting-desc {
+  margin: 3px 0 10px;
+}
+
+.lk-theme-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.lk-theme-option {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 7px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--bg-recessed);
+  color: var(--ink-primary);
+  text-align: left;
+  transition: background-color var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out);
+}
+
+.lk-theme-option:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-surface);
+}
+
+.lk-theme-option.is-selected {
+  border-color: var(--accent-border);
+  background: var(--bg-surface);
+}
+
+.lk-theme-preview {
+  --preview-canvas: #14151a;
+  --preview-topbar: #181a21;
+  --preview-panel: #1c1e26;
+  --preview-raised: #222530;
+  --preview-rule: rgba(255, 255, 255, 0.12);
+  --preview-ink: rgba(242, 243, 245, 0.72);
+  --preview-accent: #5b6ef5;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 58px;
+  padding: 5px;
+  overflow: hidden;
+  border: 1px solid var(--preview-rule);
+  border-radius: var(--radius-xs);
+  background: var(--preview-canvas);
+}
+
+.lk-theme-preview[data-theme-preview='paper'] {
+  --preview-canvas: #f4f2ec;
+  --preview-topbar: #eeece5;
+  --preview-panel: #fbfaf6;
+  --preview-raised: #ebe8df;
+  --preview-rule: rgba(43, 42, 36, 0.16);
+  --preview-ink: rgba(41, 42, 38, 0.62);
+  --preview-accent: #5364d8;
+}
+
+.lk-theme-preview-topbar {
+  display: flex;
+  align-items: center;
+  height: 9px;
+  flex: 0 0 auto;
+  padding: 0 4px;
+  border-radius: 0;
+  background: var(--preview-topbar);
+}
+
+.lk-theme-preview-topbar i {
+  width: 14px;
+  height: 2px;
+  border-radius: 0;
+  background: var(--preview-accent);
+}
+
+.lk-theme-preview-content {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 1fr) 28%;
+  gap: 5px;
+  min-height: 0;
+}
+
+.lk-theme-preview-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 5px;
+  border-radius: 0;
+  background: var(--preview-panel);
+}
+
+.lk-theme-preview-panel i {
+  display: block;
+  width: 82%;
+  height: 2px;
+  border-radius: 0;
+  background: var(--preview-ink);
+}
+
+.lk-theme-preview-panel i.is-title {
+  width: 45%;
+  background: var(--preview-accent);
+}
+
+.lk-theme-preview-panel i.is-short {
+  width: 57%;
+}
+
+.lk-theme-preview-side {
+  border-radius: 0;
+  background: var(--preview-raised);
+}
+
+.lk-theme-option-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  padding: 0 2px 1px;
+}
+
+.lk-theme-option-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.lk-theme-option-copy strong {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.lk-theme-option-copy small {
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+.lk-theme-option-check {
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  color: var(--accent-ink);
+}
+
+.lk-theme-option.is-selected .lk-theme-option-check {
+  border-color: var(--accent-fill);
+  background: var(--accent-fill);
+}
+
+.lk-settings-dialog .lk-dialog-body {
+  max-height: calc(100vh - 170px);
+  overflow-y: auto;
+}
+
 /* Settings Toggle Row */
 .lk-setting-row {
   display: flex;
@@ -2367,8 +2549,8 @@ button:disabled {
   left: 6px;
   padding: 2px 6px;
   border-radius: 5px;
-  background: rgba(16, 17, 22, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: color-mix(in srgb, var(--bg-recessed) 90%, transparent);
+  border: 1px solid var(--border-strong);
   font-size: 0.67rem;
   font-weight: 600;
   color: var(--ink-primary);
@@ -2378,7 +2560,7 @@ button:disabled {
 .lk-cover-result-loading {
   position: absolute;
   inset: 0;
-  background: rgba(16, 17, 22, 0.78);
+  background: color-mix(in srgb, var(--bg-recessed) 88%, transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2627,7 +2809,7 @@ button:disabled {
 
 .lk-context-menu-error {
   padding: 6px 9px 4px;
-  color: #f38b8b;
+  color: var(--ink-danger);
   font-size: 0.74rem;
   line-height: 1.4;
 }
@@ -2728,7 +2910,7 @@ button:disabled {
 
 .lk-collection-card.is-selected {
   border-color: var(--accent-border);
-  background: rgba(91, 110, 245, 0.08);
+  background: var(--accent-soft);
 }
 
 @keyframes lk-pop {

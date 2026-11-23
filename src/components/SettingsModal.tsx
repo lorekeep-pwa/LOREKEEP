@@ -4,12 +4,13 @@ import {
   CalendarClock,
   CheckCircle2,
   HardDrive,
+  Check,
   ShieldCheck,
   Trash2,
   Upload,
   X,
 } from 'lucide-react';
-import type { AppSettings, EditorFont, EditorWidth } from '../types/models';
+import type { AppSettings, AppTheme, EditorFont, EditorWidth } from '../types/models';
 import { SelectField } from './SelectField';
 
 interface SettingsModalProps {
@@ -118,7 +119,7 @@ export function SettingsModal({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="lk-dialog" style={{ maxWidth: 620 }}>
+      <div className="lk-dialog lk-settings-dialog" style={{ maxWidth: 620 }}>
         <div className="lk-dialog-head">
           <h2 className="lk-dialog-title">Settings</h2>
           <button
@@ -132,6 +133,49 @@ export function SettingsModal({
         </div>
 
         <div className="lk-dialog-body" style={{ gap: 8 }}>
+          <fieldset className="lk-theme-setting">
+            <legend className="lk-setting-name">Color theme</legend>
+            <p className="lk-setting-desc">Choose the workspace palette for this device.</p>
+            <div className="lk-theme-options" role="group" aria-label="Color theme options">
+              {([
+                { value: 'slate', label: 'Slate', description: 'The original dark workspace.' },
+                { value: 'paper', label: 'Paper', description: 'Warm light surfaces for daytime writing.' },
+              ] as Array<{ value: AppTheme; label: string; description: string }>).map((option) => {
+                const selected = settings.theme === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    className={`lk-theme-option ${selected ? 'is-selected' : ''}`}
+                    aria-pressed={selected}
+                    onClick={() => onUpdateSettings({ theme: option.value })}
+                  >
+                    <span className="lk-theme-preview" data-theme-preview={option.value} aria-hidden="true">
+                      <span className="lk-theme-preview-topbar"><i /></span>
+                      <span className="lk-theme-preview-content">
+                        <span className="lk-theme-preview-panel">
+                          <i className="is-title" />
+                          <i />
+                          <i className="is-short" />
+                        </span>
+                        <span className="lk-theme-preview-side" />
+                      </span>
+                    </span>
+                    <span className="lk-theme-option-label">
+                      <span className="lk-theme-option-copy">
+                        <strong>{option.label}</strong>
+                        <small>{option.description}</small>
+                      </span>
+                      <span className="lk-theme-option-check" aria-hidden="true">
+                        {selected && <Check size={14} strokeWidth={2.4} />}
+                      </span>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </fieldset>
+
           <div className="lk-setting-row">
             <div>
               <div className="lk-setting-name">Word &amp; character count</div>
@@ -422,7 +466,7 @@ export function SettingsModal({
                 role="status"
                 style={{
                   fontSize: '0.8rem',
-                  color: backupMessage.type === 'ok' ? 'var(--state-success)' : '#f38b8b',
+                  color: backupMessage.type === 'ok' ? 'var(--state-success)' : 'var(--ink-danger)',
                 }}
               >
                 {backupMessage.text}
@@ -442,7 +486,7 @@ export function SettingsModal({
               >
                 {confirmClear ? (
                   <>
-                    <span style={{ fontSize: '0.8rem', color: '#f38b8b' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--ink-danger)' }}>
                       Permanently clear your entire local archive?
                     </span>
                     <div style={{ display: 'flex', gap: 8 }}>

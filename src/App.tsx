@@ -95,7 +95,20 @@ export function App() {
     DEFAULT_SETTINGS,
   );
 
-  const resolvedSettings: AppSettings = settings ?? DEFAULT_SETTINGS;
+  const resolvedSettings: AppSettings = { ...DEFAULT_SETTINGS, ...(settings ?? {}) };
+
+  useEffect(() => {
+    const theme = resolvedSettings.theme === 'paper' ? 'paper' : 'slate';
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute(
+      'content',
+      theme === 'paper' ? '#f4f2ec' : '#14151a',
+    );
+    document.querySelector('meta[name="color-scheme"]')?.setAttribute(
+      'content',
+      theme === 'paper' ? 'light' : 'dark',
+    );
+  }, [resolvedSettings.theme]);
   const backupReminderDue = useMemo(() => {
     const interval = resolvedSettings.backupReminderInterval ?? 'monthly';
     if (interval === 'never' || (documents.length === 0 && games.length === 0 && collections.length === 0)) {

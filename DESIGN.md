@@ -188,11 +188,14 @@ Confirmed visual rejections from the product and built surface: no permanent lef
 - Hybrid Floating Workspace: 56px frosted top bar, centered 1100px viewport, bottom floating capsule Dock 20px above the floor, and `Ctrl + K` Command Palette.
 - Readable Figtree sans UI and prose paired with optional Source Serif 4 long-form editor voice and JetBrains Mono strictly for keyboard caps and tabular counters.
 - Adaptive chrome recession during continuous typing (top bar, ribbon, meta strip, and dock fade back gently and wake immediately on pointer move, hover, or keyboard focus).
-- Dark-native browser surface theming across PWA manifest, caret, text selection, focus rings, scrollbars, and portaled custom dropdowns.
+- Theme-aware browser surface styling for caret, text selection, focus rings, scrollbars, form controls, and portaled custom dropdowns; Slate remains the default PWA launch theme.
 
 ## Colors
 
 LOREKEEP pairs an eight-step neutral cool-slate tonal hierarchy with a single disciplined indigo accent and restrained semantic state hues; the built `src/styles/tokens.css` expands the initial three-tone slate brief (`#14151A`, `#191B22`, `#1E2029`) into eight calibrated luminance steps plus a contrast-hardened primary button fill.
+
+### Color Themes
+**Slate** is the default dark workspace. **Paper** is an optional warm light palette selected in Settings. Both themes use the same semantic tokens and layout; the choice is stored in local settings and included in workspace backups. Theme previews are small renderings of actual interface surfaces rather than decorative swatches. Browser-controlled surfaces and the editor canvas follow the selected theme, while the install splash uses the default Slate colors.
 
 ### Primary
 - **Disciplined Indigo** (`--accent`, `#5b6ef5`): Keyboard focus outlines (`:focus-visible`), active Floating Dock bottom indicator bar, active-document dot on the Editor dock tab, editor blockquote left accent rule, active `SelectField` checkmarks, panel header icons, and toggle switches in the `on` state.
@@ -336,10 +339,10 @@ Unified button vocabulary (`38px` default height, `0 15px` padding, `8px` radius
 ### Signature Component: Immersive TipTap Editor & Focus Mode
 - **Formatting Ribbon (`.lk-editor-ribbon`)**: Sticky slim bar (`rgba(20, 21, 26, 0.9)`, `blur(12px)`) below the TopBar exposing Undo/Redo, H1–H3, Bold/Italic/Underline/Strike/Code, Bullet/Ordered Lists, Blockquote, Horizontal Rule, silent autosave indicator (`Saved` / `Saving…`, `420ms` debounce), optional tabular word/character count, document actions, and `Focus` (`Alt + F`) toggle.
 - **Writing Sheet (`.lk-editor-canvas`)**: Borderless full-canvas writing surface with an unboxed `2.25rem` title input, a quiet single-row inline metadata strip (Game `SelectField`, Collection `SelectField`, `#tag` chips, `+ add tag`), and TipTap `.ProseMirror` rich text (`spellcheck` off by default, `autocorrect="off"`, `autocapitalize="off"`, no character limit, `2px solid var(--accent)` italic blockquotes).
-- **Browser Surface Theming**: `index.html` and `vite.config.ts` lock `<meta name="theme-color" content="#14151A">`, `<meta name="color-scheme" content="dark">`, inline dark body fallback, and standalone PWA dark splash colors; `global.css` styles `caret-color: #7c8cff`, `::selection` (`rgba(91, 110, 245, 0.34)` / `#ffffff`), `:focus-visible` (`2px solid var(--accent)` with `2px` offset), and 8px rounded translucent dark scrollbars (`::-webkit-scrollbar` with `@supports not selector(::-webkit-scrollbar)` Firefox fallback).
+- **Browser Surface Theming**: `:root[data-theme]` sets the active `color-scheme`; the app updates the browser `theme-color`, caret, selection, focus rings, scrollbars, and portaled custom dropdowns to match Slate or Paper. The PWA install splash follows the default Slate palette.
 
 ### Named Rules
-**The Dark-Native Browser Surface Rule.** Every browser-controlled surface—document canvas, PWA `theme-color`, text selection, typing caret, focus outline, scrollbars, and select dropdown menus—must stay dark-themed so native light OS popups or white flashes never break the workspace.
+**The Theme-Aware Browser Surface Rule.** Every browser-controlled surface—document canvas, PWA `theme-color`, text selection, typing caret, focus outline, scrollbars, and select dropdown menus—must match the selected theme so native controls never flash a mismatched palette.
 
 ## Do's and Don'ts
 
@@ -356,5 +359,5 @@ Unified button vocabulary (`38px` default height, `0 15px` padding, `8px` radius
 - **Don't** add uppercase eyebrow kickers above page or panel headings, or apply `text-transform: uppercase` to buttons, tags, or group labels.
 - **Don't** use hard offset shadows, neon indigo outer glows on containers, or bright multi-stop gradients on buttons and chrome (subtle gradients belong solely to 3:4 game cover fallbacks and the Game Detail hero wash).
 - **Don't** trigger modal popups, toasts, or forced autocorrect interruptions while the user is actively typing inside the Immersive Editor.
-- **Don't** use raw unstyled `<select>` menus or omit `theme-color`/`color-scheme` dark metadata, which reintroduce jarring light OS surfaces inside a dark desktop PWA.
+- **Don't** use raw unstyled `<select>` menus or let `theme-color`/`color-scheme` metadata drift from the selected workspace theme.
 - **Don't** invent secondary or neon brand accent hues for system chrome; user-picked swatches from `ACCENT_SWATCHES` are strictly for manual game covers and collection identity dots.

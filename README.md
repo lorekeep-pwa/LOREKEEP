@@ -256,7 +256,7 @@ Each revision contains the document ID, title, serialized editor content, word c
 
 ### Settings
 
-Settings are stored under the fixed key `user-settings`. On first launch, `ensureSettings()` inserts defaults. Current options include word-count visibility, editor font, writing width, spellcheck, and whether the interface recedes while typing. If the settings row is missing, the UI resolves to the defaults while the database initializes the row.
+Settings are stored under the fixed key `user-settings`. On first launch, `ensureSettings()` inserts defaults. Current options include the Slate or Paper color theme, word-count visibility, editor font, writing width, spellcheck, and whether the interface recedes while typing. The selected theme is stored with local settings and included in workspace backups. If the settings row is missing, the UI resolves to the defaults while the database initializes the row.
 
 ## Writing and editor behavior
 
@@ -666,7 +666,7 @@ Check whether it was archived, whether a search/filter is active, or whether the
 
 ## Design notes
 
-LOREKEEP uses a neutral, layered dark interface with a restrained indigo accent. The layout avoids a permanently open sidebar: a compact top bar provides context, search, and settings, while a floating dock handles primary navigation. The editor can narrow the surrounding UI further when the user chooses Focus Mode or begins an uninterrupted writing interval.
+LOREKEEP defaults to a neutral, layered dark Slate interface with a restrained indigo accent, and offers a warm Paper theme in Settings. The layout avoids a permanently open sidebar: a compact top bar provides context, search, and settings, while a floating dock handles primary navigation. The editor can narrow the surrounding UI further when the user chooses Focus Mode or begins an uninterrupted writing interval.
 
 The design intent and product scope are documented in [DESIGN.md](DESIGN.md) and [PRODUCT.md](PRODUCT.md). Deployment-specific details are kept in [DEPLOY.md](DEPLOY.md) so the operating instructions can evolve without crowding the product overview.
 

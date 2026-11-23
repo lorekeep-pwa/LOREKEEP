@@ -20,7 +20,7 @@ export function GameCover({
       style={
         !game.coverDataUrl
           ? {
-              background: `linear-gradient(155deg, ${accent}38 0%, #1c1f29 52%, #13151c 100%)`,
+              background: `linear-gradient(155deg, ${accent}38 0%, var(--bg-elevated) 52%, var(--bg-recessed) 100%)`,
             }
           : undefined
       }

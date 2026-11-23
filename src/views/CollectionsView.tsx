@@ -371,7 +371,7 @@ export function CollectionsView({
                   <span>
                     {count} {count === 1 ? 'document' : 'documents'}
                   </span>
-                  {isSelected && <span style={{ color: '#b7c2ff', fontWeight: 600 }}>Active filter</span>}
+                  {isSelected && <span style={{ color: 'var(--ink-accent-soft)', fontWeight: 600 }}>Active filter</span>}
                 </div>
               </div>
             );

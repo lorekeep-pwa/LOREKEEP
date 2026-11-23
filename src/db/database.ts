@@ -66,7 +66,8 @@ export async function ensureSettings(): Promise<AppSettings> {
     const normalized = { ...DEFAULT_SETTINGS, ...existing };
     if (
       existing.lastBackupAt === undefined ||
-      existing.backupReminderInterval === undefined
+      existing.backupReminderInterval === undefined ||
+      existing.theme === undefined
     ) {
       await db.settings.put(normalized);
     }

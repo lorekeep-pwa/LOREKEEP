@@ -415,7 +415,7 @@ export function GameFormModal({
                   {searchError && (
                     <div
                       className="lk-cover-notice"
-                      style={{ borderColor: 'rgba(226, 87, 87, 0.35)', color: '#f38b8b' }}
+                      style={{ borderColor: 'var(--state-danger-border)', color: 'var(--ink-danger)' }}
                       role="alert"
                     >
                       <span>{searchError}</span>
@@ -643,7 +643,7 @@ export function GameFormModal({
                   )}
 
                   {uploadError && (
-                    <div style={{ fontSize: '0.76rem', color: '#f38b8b', lineHeight: 1.4 }}>
+                    <div style={{ fontSize: '0.76rem', color: 'var(--ink-danger)', lineHeight: 1.4 }}>
                       {uploadError}
                     </div>
                   )}

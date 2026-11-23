@@ -43,6 +43,7 @@ Unlike generic note-taking apps built around permanent multi-pane sidebars, clou
 - Document lifecycle & organization: create, rename, duplicate, delete, archive, favorite; custom collections, tags, and instant local search across documents, games, collections, and tags.
 - Real Local-First persistence via IndexedDB (Dexie.js).
 - Full workspace backup center with last-export tracking and configurable in-app reminders (monthly by default).
+- Device-local appearance setting with the default Slate theme and an accessible warm Paper theme.
 
 ### Planned Phase 2 Scope (After v1 Feedback)
 - Document revision history (snapshots, diff/inspection, restore).
