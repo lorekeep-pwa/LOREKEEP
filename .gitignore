@@ -1,0 +1,22 @@
+# Dependencies & build
+node_modules/
+dist/
+worker/dist/
+worker/worker/dist/
+*.tsbuildinfo
+
+# Local secrets (NEVER commit API keys or Worker .dev.vars)
+.env
+.env.local
+.env.*.local
+worker/.dev.vars
+.wrangler/
+worker/.wrangler/
+
+# Design review scratch artifacts
+.impeccable/review/
+.impeccable/mocks/
+
+# OS & editor
+.DS_Store
+Thumbs.db

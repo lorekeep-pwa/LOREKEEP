@@ -1,0 +1,35 @@
+{
+  "name": "lorekeep",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start:api": "node server/cover-proxy.mjs",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck:worker": "tsc -p worker/tsconfig.json --noEmit",
+    "deploy:worker": "npx wrangler deploy --config worker/wrangler.toml"
+  },
+  "dependencies": {
+    "@tiptap/extension-character-count": "^2.11.5",
+    "@tiptap/extension-placeholder": "^2.11.5",
+    "@tiptap/extension-underline": "^2.11.5",
+    "@tiptap/pm": "^2.11.5",
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
+    "dexie": "^4.0.11",
+    "dexie-react-hooks": "^1.1.7",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}

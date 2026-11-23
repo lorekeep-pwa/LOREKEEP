@@ -1,0 +1,9 @@
+name = "lorekeep-covers-api"
+main = "src/index.ts"
+compatibility_date = "2025-02-01"
+workers_dev = true
+
+[vars]
+# After deploying your Cloudflare Pages site, you can restrict CORS to your exact Pages URL,
+# e.g. "https://lorekeep.pages.dev" (comma-separated for multiple origins).
+ALLOWED_ORIGIN = "https://lorekeep.pages.dev"

@@ -1,0 +1,412 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-22T22:54:00Z",
+  "title": "Design System: LOREKEEP",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Disciplined Indigo",
+        "canonical": "#5b6ef5",
+        "tonalRamp": ["#1a2159", "#2c3999", "#4153db", "#4b5ee8", "#5b6ef5", "#8191f8", "#aebaff", "#e6eaff"]
+      },
+      "accent-fill": {
+        "role": "primary",
+        "displayName": "Accessible Indigo Fill",
+        "canonical": "#4b5ee8",
+        "tonalRamp": ["#171e52", "#26338f", "#3848c4", "#4b5ee8", "#6577f2", "#8b99f7", "#b7c2ff", "#e9ecff"]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Indigo Fill Hover",
+        "canonical": "#5668ee",
+        "tonalRamp": ["#192057", "#2a3896", "#3e4fd1", "#5668ee", "#7182f5", "#96a3f9", "#c0caff", "#ebeeff"]
+      },
+      "accent-active": {
+        "role": "primary",
+        "displayName": "Indigo Fill Active",
+        "canonical": "#4153db",
+        "tonalRamp": ["#151b4a", "#232e80", "#3241b3", "#4153db", "#5c6de8", "#8492f2", "#b3bdff", "#e6e9ff"]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Indigo Soft Wash",
+        "canonical": "rgba(91, 110, 245, 0.14)",
+        "tonalRamp": ["#141724", "#1b2038", "#232b52", "#2e3970", "#4252a6", "#6b7ce0", "#aebaff", "#e6eaff"]
+      },
+      "accent-border": {
+        "role": "primary",
+        "displayName": "Indigo Active Border",
+        "canonical": "rgba(91, 110, 245, 0.42)",
+        "tonalRamp": ["#161b33", "#222b57", "#313e85", "#4355b8", "#5b6ef5", "#8594f8", "#b7c2ff", "#e8ebff"]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Pure White CTA Ink",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#1a1b1f", "#33363f", "#545866", "#7a8091", "#a3a8b5", "#c9cdd6", "#e8eaef", "#ffffff"]
+      },
+      "bg-recessed": {
+        "role": "neutral",
+        "displayName": "Recessed Slate",
+        "canonical": "#101116",
+        "tonalRamp": ["#101116", "#181a21", "#272b37", "#43495c", "#6c7385", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-canvas": {
+        "role": "neutral",
+        "displayName": "Deep Slate Canvas",
+        "canonical": "#14151a",
+        "tonalRamp": ["#101116", "#14151a", "#222530", "#3d4354", "#666d7e", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-topbar": {
+        "role": "neutral",
+        "displayName": "Topbar Slate",
+        "canonical": "#181a21",
+        "tonalRamp": ["#101116", "#181a21", "#272b37", "#424859", "#6a7183", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-surface": {
+        "role": "neutral",
+        "displayName": "Panel Slate",
+        "canonical": "#1c1e26",
+        "tonalRamp": ["#101116", "#1c1e26", "#2c303e", "#464c5f", "#6d7486", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-elevated": {
+        "role": "neutral",
+        "displayName": "Elevated Slate",
+        "canonical": "#222530",
+        "tonalRamp": ["#101116", "#222530", "#313646", "#4b5266", "#71788a", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-interactive": {
+        "role": "neutral",
+        "displayName": "Interactive Slate",
+        "canonical": "#272b37",
+        "tonalRamp": ["#101116", "#222530", "#272b37", "#444b60", "#6d7488", "#949ba4", "#c4c9d1", "#f2f3f5"]
+      },
+      "bg-interactive-hover": {
+        "role": "neutral",
+        "displayName": "Interactive Hover Slate",
+        "canonical": "#2f3443",
+        "tonalRamp": ["#101116", "#222530", "#2f3443", "#4c546b", "#737b8f", "#9aa1ac", "#c7ccd4", "#f2f3f5"]
+      },
+      "bg-active": {
+        "role": "neutral",
+        "displayName": "Active Dock Slate",
+        "canonical": "#343a4c",
+        "tonalRamp": ["#101116", "#222530", "#343a4c", "#515a73", "#777f94", "#9da4b0", "#c9ced6", "#f2f3f5"]
+      },
+      "border-subtle": {
+        "role": "neutral",
+        "displayName": "Subtle Hairline Border",
+        "canonical": "rgba(255, 255, 255, 0.068)",
+        "tonalRamp": ["#14151a", "#1e2027", "#2c2f38", "#484c57", "#6f7482", "#9aa0ad", "#c8cdd6", "#f2f3f5"]
+      },
+      "border-default": {
+        "role": "neutral",
+        "displayName": "Default Hairline Border",
+        "canonical": "rgba(255, 255, 255, 0.105)",
+        "tonalRamp": ["#14151a", "#22242c", "#343742", "#515663", "#777d8c", "#a1a7b3", "#ccd0d9", "#f2f3f5"]
+      },
+      "border-strong": {
+        "role": "neutral",
+        "displayName": "Strong Hover Hairline",
+        "canonical": "rgba(255, 255, 255, 0.17)",
+        "tonalRamp": ["#14151a", "#282b33", "#3e424e", "#5d6270", "#828896", "#aab0bc", "#d2d6de", "#f5f6f8"]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Primary Off-White Ink",
+        "canonical": "#f2f3f5",
+        "tonalRamp": ["#14151a", "#292c34", "#474c58", "#6d7381", "#949ba4", "#c4c9d1", "#e6e8ec", "#f2f3f5"]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Secondary Cool Ink",
+        "canonical": "#c4c9d1",
+        "tonalRamp": ["#14151a", "#272a33", "#434855", "#686e7d", "#8e95a3", "#b1b7c2", "#c4c9d1", "#edf0f5"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate Ink",
+        "canonical": "#949ba4",
+        "tonalRamp": ["#14151a", "#252830", "#3e434f", "#5e6573", "#7f8691", "#949ba4", "#bfc5cd", "#eaecef"]
+      },
+      "ink-dim": {
+        "role": "neutral",
+        "displayName": "Dim Separator Ink",
+        "canonical": "#7f8691",
+        "tonalRamp": ["#14151a", "#24272f", "#3b404c", "#585f6d", "#7f8691", "#9ca3ad", "#c3c8d0", "#e9ecef"]
+      },
+      "state-success": {
+        "role": "semantic",
+        "displayName": "Local Save Emerald",
+        "canonical": "#45b36b",
+        "tonalRamp": ["#102919", "#19472a", "#246e40", "#319155", "#45b36b", "#6ec98c", "#a3deb6", "#dff5e6"]
+      },
+      "state-favorite": {
+        "role": "semantic",
+        "displayName": "Favorite Gold",
+        "canonical": "#e6b450",
+        "tonalRamp": ["#33250c", "#594115", "#856220", "#b3852d", "#e6b450", "#edc777", "#f4dca5", "#fcf3dc"]
+      },
+      "state-danger": {
+        "role": "semantic",
+        "displayName": "Destructive Coral",
+        "canonical": "#e25757",
+        "tonalRamp": ["#361212", "#611f1f", "#912f2f", "#bf4141", "#e25757", "#ed8282", "#f5b0b0", "#fce2e2"]
+      },
+      "state-danger-soft": {
+        "role": "semantic",
+        "displayName": "Destructive Soft Wash",
+        "canonical": "rgba(226, 87, 87, 0.14)",
+        "tonalRamp": ["#241416", "#3d1d20", "#5e292d", "#87383d", "#b8494e", "#e25757", "#f38b8b", "#fce2e2"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editor Document Display",
+        "purpose": "Editable story title at the top of the Immersive Editor (.lk-editor-title) and 3:4 game cover monograms."
+      },
+      "headline": {
+        "displayName": "Page Headline",
+        "purpose": "Top-level view headings (Hub Workspace, Games Library, Collections & Tags, Archive, Game Detail) and prose H1."
+      },
+      "title": {
+        "displayName": "Panel & Row Title",
+        "purpose": "Panel headers, document row titles, game card titles, and modal headings."
+      },
+      "body": {
+        "displayName": "UI Body Copy",
+        "purpose": "Section descriptions (max 60ch), empty-state guidance, and settings explanations."
+      },
+      "prose-sans": {
+        "displayName": "Immersive Prose (Sans)",
+        "purpose": "Default TipTap writing canvas body copy in Figtree (color #e6e8ec)."
+      },
+      "prose-serif": {
+        "displayName": "Immersive Prose (Serif)",
+        "purpose": "Optional long-form literary editor typography toggled in Settings using Source Serif 4."
+      },
+      "label": {
+        "displayName": "Control Label",
+        "purpose": "Form labels, buttons, Floating Dock tabs, filter pills, and metadata chips."
+      },
+      "mono": {
+        "displayName": "Shortcut & Tabular Mono",
+        "purpose": "Strictly for keyboard shortcut caps (.lk-kbd), tabular count pills, and inline or fenced prose code."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-cta",
+        "value": "0 2px 10px rgba(0, 0, 0, 0.3)",
+        "purpose": "Subtle grounding elevation under primary indigo action buttons (.lk-btn-primary)."
+      },
+      {
+        "name": "shadow-md",
+        "value": "0 10px 28px rgba(0, 0, 0, 0.38)",
+        "purpose": "Hover-lifted 3:4 game cards, Game Detail hero cover frame, Focus Mode exit pill, and toast notifications."
+      },
+      {
+        "name": "shadow-dock",
+        "value": "0 14px 40px rgba(0, 0, 0, 0.56), 0 1px 0 rgba(255, 255, 255, 0.05) inset",
+        "purpose": "Floating bottom navigation capsule with a 1px top inset specular edge."
+      },
+      {
+        "name": "shadow-dialog",
+        "value": "0 24px 64px rgba(0, 0, 0, 0.68)",
+        "purpose": "Command Palette, Settings and Game modals, and portaled SelectField listbox menus."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px rgba(91, 110, 245, 0.22)",
+        "purpose": "Soft indigo focus halo around active text inputs, textareas, and custom SelectField triggers."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Default smooth deceleration curve for interactive hover, focus, dock, and chrome recession transitions."
+      },
+      {
+        "name": "t-fast",
+        "value": "140ms",
+        "purpose": "Micro-interactions: buttons, row hover, icon toggles, borders, switches, and dialog/toast entrance."
+      },
+      {
+        "name": "t-base",
+        "value": "210ms",
+        "purpose": "Spatial transitions: game card hover lift, editor column width resize, and typing-calm chrome opacity fade."
+      },
+      {
+        "name": "lk-pop",
+        "value": "140ms cubic-bezier(0.22, 1, 0.36, 1) from opacity 0 translateY(-6px) scale(0.985)",
+        "purpose": "Crisp non-bouncy entrance for Command Palette, dialogs, toasts, and select menus (120ms)."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms under @media (prefers-reduced-motion: reduce)",
+        "purpose": "Eliminates transition and animation durations for users requesting reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet",
+        "value": "920px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main creation or commit CTA using contrast-hardened indigo fill (#4b5ee8) and white ink.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg><span>New document</span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 15px; border-radius: var(--radius-sm, 8px); border: 1px solid transparent; background: var(--accent-fill, #4b5ee8); color: var(--accent-ink, #ffffff); font-family: var(--font-ui, 'Figtree', sans-serif); font-size: 0.875rem; font-weight: 600; line-height: 1; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), transform var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-btn-primary:hover { background: var(--accent-hover, #5668ee); } .ds-btn-primary:active { background: var(--accent-active, #4153db); transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet neutral slate action for sibling commands such as Add game or Edit profile.",
+      "html": "<button type=\"button\" class=\"ds-btn-secondary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><line x1=\"6\" x2=\"10\" y1=\"11\" y2=\"11\"/><line x1=\"8\" x2=\"8\" y1=\"9\" y2=\"13\"/><line x1=\"15\" x2=\"15.01\" y1=\"12\" y2=\"12\"/><line x1=\"18\" x2=\"18.01\" y1=\"10\" y2=\"10\"/><path d=\"M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z\"/></svg><span>Add game</span></button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 38px; padding: 0 15px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--border-default, rgba(255, 255, 255, 0.105)); background: var(--bg-interactive, #272b37); color: var(--ink-primary, #f2f3f5); font-family: var(--font-ui, 'Figtree', sans-serif); font-size: 0.875rem; font-weight: 600; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), transform var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-btn-secondary:hover { background: var(--bg-interactive-hover, #2f3443); border-color: var(--border-strong, rgba(255, 255, 255, 0.17)); } .ds-btn-secondary:active { transform: translateY(1px); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Danger Confirmation Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Inline two-step destructive confirmation button avoiding modal browser alerts.",
+      "html": "<button type=\"button\" class=\"ds-btn-danger\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 6h18\"/><path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\"/><path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\"/></svg><span>Confirm delete</span></button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 32px; padding: 0 11px; border-radius: var(--radius-xs, 6px); border: 1px solid rgba(226, 87, 87, 0.35); background: var(--state-danger-soft, rgba(226, 87, 87, 0.14)); color: #f38b8b; font-family: var(--font-ui, 'Figtree', sans-serif); font-size: 0.8125rem; font-weight: 600; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-btn-danger:hover { background: rgba(226, 87, 87, 0.24); color: #ffffff; } .ds-btn-danger:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Recessed Input & Dark Select Trigger",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Recessed slate text field and custom portaled SelectField trigger with indigo focus halo.",
+      "html": "<div class=\"ds-field-stack\"><label class=\"ds-label\" for=\"ds-game-title\">Game title</label><input id=\"ds-game-title\" type=\"text\" class=\"ds-input\" placeholder=\"e.g. Alan Wake 2, Elden Ring…\" /><button type=\"button\" class=\"ds-select-trigger\" aria-haspopup=\"listbox\" aria-expanded=\"false\"><span>PC</span><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></button></div>",
+      "css": ".ds-field-stack { display: flex; flex-direction: column; gap: 8px; width: 280px; font-family: var(--font-ui, 'Figtree', sans-serif); } .ds-label { font-size: 0.8125rem; font-weight: 600; color: var(--ink-secondary, #c4c9d1); } .ds-input, .ds-select-trigger { width: 100%; height: 38px; padding: 0 12px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--border-default, rgba(255, 255, 255, 0.105)); background: var(--bg-recessed, #101116); color: var(--ink-primary, #f2f3f5); font-family: inherit; font-size: 0.875rem; transition: border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), box-shadow var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-select-trigger { display: flex; align-items: center; justify-content: space-between; cursor: pointer; text-align: left; } .ds-select-trigger svg { color: var(--ink-muted, #949ba4); } .ds-input::placeholder { color: var(--ink-muted, #949ba4); } .ds-input:hover, .ds-select-trigger:hover { border-color: var(--border-strong, rgba(255, 255, 255, 0.17)); } .ds-input:focus, .ds-select-trigger:focus-visible { outline: none; border-color: var(--accent, #5b6ef5); box-shadow: 0 0 0 3px rgba(91, 110, 245, 0.22); }"
+    },
+    {
+      "name": "Filter Pills & Tag Chip",
+      "kind": "chip",
+      "refersTo": "filter-pill",
+      "description": "Platform and tag filter capsules alongside soft-indigo inline document tag chips.",
+      "html": "<div class=\"ds-chip-row\"><button type=\"button\" class=\"ds-filter-pill ds-is-active\">All (4)</button><button type=\"button\" class=\"ds-filter-pill\">PC</button><span class=\"ds-tag-pill\">#lore</span></div>",
+      "css": ".ds-chip-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-family: var(--font-ui, 'Figtree', sans-serif); } .ds-filter-pill { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border-radius: var(--radius-pill, 999px); border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.068)); background: var(--bg-surface, #1c1e26); color: var(--ink-secondary, #c4c9d1); font-size: 0.8125rem; font-weight: 500; cursor: pointer; transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-filter-pill:hover { background: var(--bg-interactive, #272b37); color: var(--ink-primary, #f2f3f5); } .ds-filter-pill.ds-is-active { background: var(--accent-soft, rgba(91, 110, 245, 0.14)); border-color: var(--accent-border, rgba(91, 110, 245, 0.42)); color: #cdd6ff; } .ds-filter-pill:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; } .ds-tag-pill { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: var(--radius-xs, 6px); background: rgba(91, 110, 245, 0.12); color: #aebaff; font-size: 0.74rem; font-weight: 500; }"
+    },
+    {
+      "name": "Top Search Trigger & Keycap",
+      "kind": "nav",
+      "refersTo": "kbd-cap",
+      "description": "Centered TopBar search pill launching the Ctrl + K Command Palette with a tactile JetBrains Mono keycap.",
+      "html": "<button type=\"button\" class=\"ds-search-trigger\"><span class=\"ds-search-left\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><span>Search stories, games, tags, or commands…</span></span><kbd class=\"ds-kbd\">Ctrl K</kbd></button>",
+      "css": ".ds-search-trigger { width: 340px; max-width: 100%; height: 35px; padding: 0 10px 0 12px; border-radius: var(--radius-sm, 8px); border: 1px solid var(--border-default, rgba(255, 255, 255, 0.105)); background: var(--bg-recessed, #101116); color: var(--ink-muted, #949ba4); display: flex; align-items: center; justify-content: space-between; gap: 10px; font-family: var(--font-ui, 'Figtree', sans-serif); font-size: 0.84rem; cursor: pointer; transition: border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-search-trigger:hover { border-color: var(--border-strong, rgba(255, 255, 255, 0.17)); background: #13151c; color: var(--ink-secondary, #c4c9d1); } .ds-search-trigger:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; } .ds-search-left { display: inline-flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; } .ds-search-left span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-kbd { display: inline-flex; align-items: center; font-family: var(--font-mono, 'JetBrains Mono', monospace); font-size: 0.69rem; font-weight: 500; line-height: 1; color: var(--ink-secondary, #c4c9d1); background: var(--bg-elevated, #222530); border: 1px solid var(--border-default, rgba(255, 255, 255, 0.105)); border-bottom-color: rgba(255, 255, 255, 0.16); border-radius: 5px; padding: 4px 6px; white-space: nowrap; }"
+    },
+    {
+      "name": "Floating Dock",
+      "kind": "nav",
+      "refersTo": "dock-capsule",
+      "description": "Signature Hybrid Floating Workspace bottom capsule replacing permanent sidebars.",
+      "html": "<nav class=\"ds-dock\" aria-label=\"Primary navigation\"><button type=\"button\" class=\"ds-dock-item ds-is-active\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polygon points=\"16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76\"/></svg><span>Hub</span></button><button type=\"button\" class=\"ds-dock-item\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z\"/><line x1=\"16\" x2=\"2\" y1=\"8\" y2=\"22\"/><line x1=\"17.5\" x2=\"9\" y1=\"15\" y2=\"15\"/></svg><span>Editor</span><span class=\"ds-dock-dot\" aria-hidden=\"true\"></span></button><button type=\"button\" class=\"ds-dock-item\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><line x1=\"6\" x2=\"10\" y1=\"11\" y2=\"11\"/><line x1=\"8\" x2=\"8\" y1=\"9\" y2=\"13\"/><line x1=\"15\" x2=\"15.01\" y1=\"12\" y2=\"12\"/><line x1=\"18\" x2=\"18.01\" y1=\"10\" y2=\"10\"/><path d=\"M17.32 5H6.68a4 4 0 0 0-3.978 3.59l-.685 7.258a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3l-.685-7.258A4 4 0 0 0 17.32 5z\"/></svg><span>Games</span></button><div class=\"ds-dock-sep\" aria-hidden=\"true\"></div><button type=\"button\" class=\"ds-dock-cta\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg><span>Write</span></button></nav>",
+      "css": ".ds-dock { display: inline-flex; align-items: center; gap: 4px; padding: 6px; border-radius: 16px; background: rgba(28, 30, 38, 0.92); backdrop-filter: blur(18px); border: 1px solid var(--border-default, rgba(255, 255, 255, 0.105)); box-shadow: var(--shadow-dock, 0 14px 40px rgba(0, 0, 0, 0.56), 0 1px 0 rgba(255, 255, 255, 0.05) inset); font-family: var(--font-ui, 'Figtree', sans-serif); } .ds-dock-item { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: 10px; border: none; background: transparent; color: var(--ink-muted, #949ba4); font-family: inherit; font-size: 0.84rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-dock-item:hover { background: var(--bg-interactive, #272b37); color: var(--ink-primary, #f2f3f5); } .ds-dock-item.ds-is-active { background: var(--bg-active, #343a4c); color: var(--ink-primary, #f2f3f5); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08); } .ds-dock-item.ds-is-active::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 18px; height: 2.5px; border-radius: 99px; background: var(--accent, #5b6ef5); } .ds-dock-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent, #5b6ef5); } .ds-dock-sep { width: 1px; height: 22px; background: var(--border-default, rgba(255, 255, 255, 0.105)); margin: 0 4px; } .ds-dock-cta { height: 40px; padding: 0 14px; border-radius: 10px; border: none; background: var(--accent-fill, #4b5ee8); color: var(--accent-ink, #ffffff); font-family: inherit; font-size: 0.84rem; font-weight: 600; display: inline-flex; align-items: center; gap: 7px; cursor: pointer; transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), transform var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-dock-cta:hover { background: var(--accent-hover, #5668ee); } .ds-dock-cta:active { transform: translateY(1px); } .ds-dock-item:focus-visible, .ds-dock-cta:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; }"
+    },
+    {
+      "name": "3:4 Game Cover Card",
+      "kind": "card",
+      "refersTo": "panel-surface",
+      "description": "Box-art proportion game card with fallback cover gradient, monogram, frosted platform pill, and hover lift.",
+      "html": "<button type=\"button\" class=\"ds-game-card\"><div class=\"ds-game-cover\"><span class=\"ds-cover-bar\" aria-hidden=\"true\"></span><div class=\"ds-cover-bottom\"><div class=\"ds-monogram\" aria-hidden=\"true\">AW</div><span class=\"ds-platform\">PC</span></div></div><div class=\"ds-game-body\"><div class=\"ds-game-title\">Alan Wake 2</div><div class=\"ds-game-sub\">Survival Horror · 1 story</div></div></button>",
+      "css": ".ds-game-card { width: 196px; display: flex; flex-direction: column; background: var(--bg-surface, #1c1e26); border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.068)); border-radius: var(--radius-md, 11px); overflow: hidden; text-align: left; padding: 0; cursor: pointer; font-family: var(--font-ui, 'Figtree', sans-serif); transition: transform var(--t-base, 210ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), box-shadow var(--t-base, 210ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-game-card:hover { transform: translateY(-2px); border-color: var(--border-strong, rgba(255, 255, 255, 0.17)); box-shadow: var(--shadow-md, 0 10px 28px rgba(0, 0, 0, 0.38)); } .ds-game-card:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 2px; } .ds-game-cover { width: 100%; aspect-ratio: 3 / 4; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(155deg, rgba(67, 158, 163, 0.22) 0%, #1c1f29 52%, #13151c 100%); } .ds-cover-bar { width: 32px; height: 3.5px; border-radius: 99px; background: #439ea3; } .ds-cover-bottom { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; } .ds-monogram { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: rgba(255, 255, 255, 0.9); } .ds-platform { display: inline-flex; padding: 3px 8px; border-radius: var(--radius-xs, 6px); background: rgba(16, 17, 22, 0.72); border: 1px solid rgba(255, 255, 255, 0.14); font-size: 0.72rem; font-weight: 600; color: var(--ink-primary, #f2f3f5); backdrop-filter: blur(6px); } .ds-game-body { padding: 12px 13px 13px; display: flex; flex-direction: column; gap: 4px; } .ds-game-title { font-size: 0.92rem; font-weight: 600; color: var(--ink-primary, #f2f3f5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-game-sub { font-size: 0.78rem; color: var(--ink-muted, #949ba4); }"
+    },
+    {
+      "name": "Document Row",
+      "kind": "custom",
+      "refersTo": "panel-surface",
+      "description": "Linear hover-elevated story row inside panels displaying excerpt, game chip, tags, tabular word count, and quiet actions.",
+      "html": "<div class=\"ds-doc-row\"><button type=\"button\" class=\"ds-doc-main\"><div class=\"ds-doc-top\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"var(--state-favorite, #e6b450)\" stroke=\"var(--state-favorite, #e6b450)\" stroke-width=\"2\" aria-hidden=\"true\"><polygon points=\"12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2\"/></svg><span class=\"ds-doc-title\">Fragments from Cauldron Lake</span></div><div class=\"ds-doc-excerpt\">Manuscripts in the Overlap Saga Anderson discovered along the shore…</div><div class=\"ds-doc-meta\"><span class=\"ds-meta-chip\">Alan Wake 2</span><span class=\"ds-tag-pill\">#lore</span><span class=\"ds-tabular\">412 words · 2m ago</span></div></button></div>",
+      "css": ".ds-doc-row { width: 460px; max-width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 14px; border-radius: var(--radius-md, 11px); border: 1px solid transparent; background: transparent; font-family: var(--font-ui, 'Figtree', sans-serif); transition: background-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)), border-color var(--t-fast, 140ms) var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)); } .ds-doc-row:hover { background: var(--bg-elevated, #222530); border-color: var(--border-subtle, rgba(255, 255, 255, 0.068)); } .ds-doc-main { flex: 1; min-width: 0; border: none; background: transparent; padding: 0; text-align: left; display: flex; flex-direction: column; gap: 4px; cursor: pointer; font-family: inherit; } .ds-doc-main:focus-visible { outline: 2px solid var(--accent, #5b6ef5); outline-offset: 4px; border-radius: 6px; } .ds-doc-top { display: flex; align-items: center; gap: 8px; } .ds-doc-title { font-size: 0.9375rem; font-weight: 600; color: var(--ink-primary, #f2f3f5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-doc-excerpt { font-size: 0.835rem; color: var(--ink-muted, #949ba4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-doc-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 2px; font-size: 0.76rem; color: var(--ink-muted, #949ba4); } .ds-meta-chip { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: var(--radius-pill, 999px); background: var(--bg-interactive, #272b37); border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.068)); font-size: 0.74rem; color: var(--ink-secondary, #c4c9d1); } .ds-tag-pill { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: var(--radius-xs, 6px); background: rgba(91, 110, 245, 0.12); color: #aebaff; font-size: 0.74rem; font-weight: 500; } .ds-tabular { font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Dark Desk",
+    "overview": "LOREKEEP is a local-first desktop writing sanctuary built around a Standard Dark Desktop visual system and a Hybrid Floating Workspace. Instead of trapping the writer inside permanent multi-pane sidebars, dense tool drawers, or neon gaming chrome, the interface layers calm neutral dark slate surfaces separated by crisp 1px translucent hairlines and holds a single disciplined indigo accent in reserve for primary actions, active navigation, and keyboard focus.\n\nThe density adapts to the task in front of the writer. Management views (Hub Workspace, Games Library, Collections & Tags, Archive) organize content in clean, generous 1100px stages with linear hover-elevated document rows and 3:4 box-art game cards; once inside the Immersive Editor, navigation chrome recedes quietly on typing activity and disappears completely in fullscreen Focus Mode so prose commands the entire viewport.\n\nConfirmed visual rejections from the product and built surface: no permanent left or right navigation sidebars, no neon RGB gamer glows or hard offset shadows, no AI assistant badges or promotional banners, no browser-white flash or unstyled light OS form popups, and no uppercase eyebrow kickers above section headings.",
+    "keyCharacteristics": [
+      "Eight-step neutral dark slate tonal ladder from recessed inputs (#101116) to active Floating Dock state (#343a4c), separated by 1px white-alpha hairlines.",
+      "Disciplined indigo primary accent (#5b6ef5 for indicators and focus; deepened #4b5ee8 fill for WCAG AA >= 4.5:1 white button labels).",
+      "Hybrid Floating Workspace: 56px frosted top bar, centered 1100px viewport, bottom floating capsule Dock 20px above the floor, and Ctrl + K Command Palette.",
+      "Readable Figtree sans UI and prose paired with optional Source Serif 4 long-form editor voice and JetBrains Mono strictly for keyboard caps and tabular counters.",
+      "Adaptive chrome recession during continuous typing (top bar, ribbon, meta strip, and dock fade back gently and wake immediately on pointer move, hover, or keyboard focus).",
+      "Dark-native browser surface theming across PWA manifest, caret, text selection, focus rings, scrollbars, and portaled custom dropdowns."
+    ],
+    "rules": [
+      {
+        "name": "The Deepened CTA Fill Rule",
+        "body": "Use the luminous indigo accent (#5b6ef5) for focus outlines, active dock indicators, blockquote bars, and accent icons, but always use the deepened fill (#4b5ee8) behind white primary button text to guarantee WCAG AA contrast (>= 4.5:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Neutral Slate Discipline Rule",
+        "body": "Keep 90%+ of every screen in layered neutral dark slate and off-white ink; reserve indigo for active state, focus, and primary triggers, and confine user-picked cover/collection swatches strictly to small dots, 3:4 cover fallback accents, and subtle hero washes.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono Boundary Rule",
+        "body": "Reserve JetBrains Mono strictly for keyboard shortcut caps (.lk-kbd), tabular count pills, and inline or fenced code inside prose; never use monospace for headings, navigation labels, or body copy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Calm Sentence-Case Rule",
+        "body": "Keep page titles, panel headings, button labels, and Command Palette group headers in sentence case with zero uppercase eyebrow kickers; all-caps tracking is reserved solely for the LOREKEEP brand wordmark and 3:4 game cover monograms.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Sidebar Workspace Rule",
+        "body": "All top-level navigation lives in the 56px sticky top bar, the centered bottom Floating Dock, and the Ctrl + K Command Palette; every primary viewport reserves 108px of bottom clearance (--dock-clearance) so scrollable content never collides with the floating capsule.",
+        "section": "layout"
+      },
+      {
+        "name": "The Typing-Calm Recession Rule",
+        "body": "During continuous writing inside the Immersive Editor, surrounding chrome dims softly (top bar 0.22, editor ribbon 0.14, meta strip 0.25, Floating Dock 0.28 with a 6px downward nudge) and wakes cleanly on pointer movement, hover, or focus—or vanishes completely in fullscreen Focus Mode.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-Panels, Lifted-Chrome Rule",
+        "body": "Static content panels rest flat on the canvas via tonal slate contrast and 1px hairline borders without drop shadows; soft dark ambient shadows appear only on floating chrome (Floating Dock, Focus pill, toasts), portaled menus, modal dialogs, primary CTAs, and hover-lifted game cards.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Concentric Radius Hierarchy Rule",
+        "body": "Step corners progressively outward from nested micro-elements (5px kbd caps, 6px small controls and tags) through standard inputs and buttons (8px), cards and rows (11px), panels and modals (14px), to the Floating Dock capsule (16px housing 10px items) and full pills (999px).",
+        "section": "shapes"
+      },
+      {
+        "name": "The Dark-Native Browser Surface Rule",
+        "body": "Every browser-controlled surface—document canvas, PWA theme-color, text selection, typing caret, focus outline, scrollbars, and select dropdown menus—must stay dark-themed so native light OS popups or white flashes never break the workspace.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Do ground new surfaces on the eight-step neutral slate ladder (--bg-recessed through --bg-active) paired with 1px white-alpha hairline borders (--border-subtle, --border-default, --border-strong).",
+      "Do use --accent-fill (#4b5ee8) with --accent-ink (#ffffff) for primary CTA buttons and --accent (#5b6ef5) for focus outlines, active dock bars, checkmarks, and prose blockquotes.",
+      "Do preserve 108px bottom clearance (--dock-clearance) on main views and route new sections through the Floating Dock and Ctrl + K Command Palette rather than adding a permanent sidebar.",
+      "Do use the portaled SelectField component (or an equivalent custom dark listbox) instead of native HTML <select> elements so dropdown menus match --bg-elevated and --shadow-dialog.",
+      "Do pair tabular-nums with JetBrains Mono for shortcut caps and count badges, and use inline two-step confirmation for destructive delete actions instead of disruptive browser confirm() dialogs.",
+      "Do respect @media (prefers-reduced-motion: reduce) by keeping all transitions driven by --t-fast (140ms), --t-base (210ms), and --ease-out (cubic-bezier(0.22, 1, 0.36, 1))."
+    ],
+    "donts": [
+      "Don't introduce permanent left or right navigation sidebars or multi-pane chrome that competes with the centered 1100px workspace and Immersive Editor.",
+      "Don't add uppercase eyebrow kickers above page or panel headings, or apply text-transform: uppercase to buttons, tags, or group labels.",
+      "Don't use hard offset shadows, neon indigo outer glows on containers, or bright multi-stop gradients on buttons and chrome (subtle gradients belong solely to 3:4 game cover fallbacks and the Game Detail hero wash).",
+      "Don't trigger modal popups, toasts, or forced autocorrect interruptions while the user is actively typing inside the Immersive Editor.",
+      "Don't use raw unstyled <select> menus or omit theme-color/color-scheme dark metadata, which reintroduce jarring light OS surfaces inside a dark desktop PWA.",
+      "Don't invent secondary or neon brand accent hues for system chrome; user-picked swatches from ACCENT_SWATCHES are strictly for manual game covers and collection identity dots."
+    ]
+  }
+}

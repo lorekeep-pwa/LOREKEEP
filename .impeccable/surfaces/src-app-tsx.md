@@ -1,0 +1,22 @@
+---
+version: 1
+slug: "src-app-tsx"
+primary_target: "src/App.tsx"
+related_targets: ["index.html","src/styles/tokens.css","src/styles/global.css"]
+---
+
+# Surface Brief — LOREKEEP Workspace (v1)
+
+- **Scope:** Full desktop PWA application shell (`src/App.tsx`), Hybrid Floating Workspace navigation (compact top bar, bottom Floating Dock, `Ctrl + K` Command Palette), Hub Workspace, Games Library & Game Detail, Collections & Tags, Archive, Settings, and TipTap Immersive Editor with Focus Mode.
+- **Mode:** `operate` (code-led).
+- **Audience & Task:** PC/console gamer & writer drafting stories, tales, and lore notes daily in a calm Local-First dark desktop workspace starting from a clean empty archive.
+- **Constraints:** English UI; zero AI, ads, accounts, or external APIs; no permanent traditional sidebar; zero popups or forced autocorrections inside the editor; IndexedDB persistence via Dexie.js.
+
+## Direction contract
+
+THESIS: LOREKEEP is a calm, local-first PC writing sanctuary structured as a Hybrid Floating Workspace rather than a crowded three-pane sidebar notes app, elevating writing clarity and manual game-world archiving to first-class status.
+OWN-WORLD: Neutral layered dark slate surfaces (`#14151A` canvas, `#191B22` topbar/recessed chrome, `#1E2029` raised panels and Floating Dock, `#252834` hover/interactive controls) paired with crisp 1px borders (`rgba(255,255,255,0.08)`), high-contrast off-white ink (`#F2F3F5`), accessible muted slate (`#949BA4`), Figtree UI/prose sans (with optional Source Serif 4 editor voice), JetBrains Mono strictly for keyboard shortcuts and tabular counters, and a disciplined indigo-blue accent (`#5B6EF5`) reserved for active focus, selection, and primary actions.
+STORY: The user immediately sees an uncluttered, ready-to-write local workspace with zero onboarding noise, understands how to start a story or register a game in one click, discovers `Ctrl + K` and the Floating Dock effortlessly, and experiences a silent, distraction-free Immersive Editor with fullscreen Focus Mode.
+FIRST VIEWPORT: Compact 56px top navbar (LOREKEEP brand mark and section breadcrumb, centered `Ctrl + K` search pill, and clean Settings trigger on the right), centered Hub Workspace (maximum 1100px width) opening with a clear heading and dual primary actions (+ New document / + Add game) above a balanced two-column workspace stage (Recent writing & Favorites panel on the left, Games & Collections/Tags panels on the right, each with purposeful empty states and live counts once populated), anchored by a centered floating capsule Dock 20px above the bottom edge carrying Hub, Editor, Games, Collections, Archive, and a quick Write action. Signature interaction: adaptive Floating Dock and top chrome that recede softly during active Immersive Editor writing and hide completely in fullscreen Focus Mode, paired with instant keyboard-driven `Ctrl + K` Command Palette navigation.
+FORM: Standard Dark Desktop (canon direction selected by user from direction round; `seed:0f9d73192cd21818`).
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

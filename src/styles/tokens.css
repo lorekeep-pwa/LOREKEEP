@@ -1,0 +1,69 @@
+:root {
+  /* Layered Neutral Dark Slate Palette (Standard Dark Desktop) */
+  --bg-canvas: #14151a;
+  --bg-recessed: #101116;
+  --bg-topbar: #181a21;
+  --bg-surface: #1c1e26;
+  --bg-elevated: #222530;
+  --bg-interactive: #272b37;
+  --bg-interactive-hover: #2f3443;
+  --bg-active: #343a4c;
+
+  /* Hairline Borders */
+  --border-subtle: rgba(255, 255, 255, 0.068);
+  --border-default: rgba(255, 255, 255, 0.105);
+  --border-strong: rgba(255, 255, 255, 0.17);
+
+  /* Accessible Ink Hierarchy (>= 4.5:1 on surfaces) */
+  --ink-primary: #f2f3f5;
+  --ink-secondary: #c4c9d1;
+  --ink-muted: #949ba4;
+  --ink-dim: #7f8691;
+
+  /* Disciplined Indigo Accent (WCAG AA >= 4.5:1 for white button labels) */
+  --accent: #5b6ef5;
+  --accent-fill: #4b5ee8;
+  --accent-hover: #5668ee;
+  --accent-active: #4153db;
+  --accent-soft: rgba(91, 110, 245, 0.14);
+  --accent-border: rgba(91, 110, 245, 0.42);
+  --accent-ink: #ffffff;
+
+  /* Semantic States */
+  --state-success: #45b36b;
+  --state-success-soft: rgba(69, 179, 107, 0.14);
+  --state-favorite: #e6b450;
+  --state-favorite-soft: rgba(230, 180, 80, 0.14);
+  --state-warning: #db9a4c;
+  --state-danger: #e25757;
+  --state-danger-soft: rgba(226, 87, 87, 0.14);
+
+  /* Typography */
+  --font-ui: 'Figtree', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 11px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-pill: 999px;
+
+  /* Layered Elevation Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.28);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.38);
+  --shadow-dock: 0 14px 40px rgba(0, 0, 0, 0.56), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  --shadow-dialog: 0 24px 64px rgba(0, 0, 0, 0.68);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 140ms;
+  --t-base: 210ms;
+
+  /* Layout Dimensions */
+  --topbar-height: 56px;
+  --dock-clearance: 108px;
+  --container-max: 1100px;
+}

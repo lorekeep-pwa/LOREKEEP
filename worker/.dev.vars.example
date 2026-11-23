@@ -1,0 +1,9 @@
+# Local-only secrets for testing the Worker with `npx wrangler dev` (NEVER commit .dev.vars)
+# In production, set these as Cloudflare Worker Secrets via:
+#   npx wrangler secret put IGDB_CLIENT_ID
+#   npx wrangler secret put IGDB_CLIENT_SECRET
+#   npx wrangler secret put STEAMGRIDDB_API_KEY
+
+IGDB_CLIENT_ID=
+IGDB_CLIENT_SECRET=
+STEAMGRIDDB_API_KEY=
