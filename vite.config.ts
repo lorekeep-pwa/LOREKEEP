@@ -38,7 +38,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['lorekeep-icon.svg'],
       manifest: {
-        name: 'LOREKEEP — Narrative Archive for Video Games',
+        name: 'LOREKEEP: Narrative Archive for Video Games',
         short_name: 'LOREKEEP',
         description:
           'Local-First desktop PWA for writing stories, tales, and notes dedicated to modern PC and console video games.',
