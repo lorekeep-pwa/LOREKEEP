@@ -5,7 +5,9 @@ import {
   HardDrive,
   FolderKanban,
   Gamepad2,
+  Github,
   Hash,
+  ExternalLink,
   Plus,
   Star,
 } from 'lucide-react';
@@ -117,6 +119,22 @@ export function HubView({
             <Gamepad2 size={16} strokeWidth={2} />
             Add game
           </button>
+          <a
+            className="lk-hub-repo-link"
+            href="https://github.com/lorekeep-pwa/LOREKEEP"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open LOREKEEP on GitHub in a new tab"
+          >
+            <span className="lk-hub-repo-mark" aria-hidden="true">
+              <Github size={18} strokeWidth={1.8} />
+            </span>
+            <span className="lk-hub-repo-copy">
+              <strong>GitHub</strong>
+              <span>lorekeep-pwa/LOREKEEP</span>
+            </span>
+            <ExternalLink className="lk-hub-repo-external" size={13} aria-hidden="true" />
+          </a>
         </div>
       </div>
 
